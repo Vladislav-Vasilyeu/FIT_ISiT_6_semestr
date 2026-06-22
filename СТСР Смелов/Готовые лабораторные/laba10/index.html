@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>10-01</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 30px; 
+            background: #f8f9fa;
+        }
+        h1 { color: #333; }
+        button { 
+            padding: 12px 25px; 
+            font-size: 18px; 
+            background: #007bff; 
+            color: white; 
+            border: none; 
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover { background: #0056b3; }
+        #log { 
+            margin-top: 20px;
+            height: 500px; 
+            overflow-y: scroll; 
+            border: 2px solid #ddd; 
+            padding: 15px; 
+            background: white;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>10-01</h1>
+    <button onclick="startWS()">startWS</button>
+    <div id="log"></div>
+
+    <script>
+        let ws = null;
+        let interval = null;
+        let messageCount = 0;
+        let startTime = null;
+
+        function log(msg) {
+            const div = document.getElementById('log');
+            div.innerHTML += msg + '<br>';
+            div.scrollTop = div.scrollHeight;
+        }
+
+        function startWS() {
+            // Закрываем предыдущее соединение, если есть
+            if (ws) ws.close();
+
+            ws = new WebSocket('ws://localhost:4000');
+            messageCount = 0;
+            startTime = Date.now();
+
+            log('<b style="color:green">WS соединение открыто</b>');
+
+            ws.onmessage = (event) => {
+                log('<span style="color:blue">← ' + event.data + '</span>');
+            };
+
+            ws.onclose = () => {
+                log('<b style="color:red">WS соединение закрыто</b>');
+                clearInterval(interval);
+            };
+
+            ws.onerror = (err) => log('<b style="color:red">Ошибка WS</b>');
+
+            // Отправка сообщений каждые 3 секунды
+            interval = setInterval(() => {
+                if (ws && ws.readyState === WebSocket.OPEN) {
+                    messageCount++;
+                    const msg = `10-01-client: ${messageCount}`;
+                    ws.send(msg);
+                    log('<span style="color:green">→ ' + msg + '</span>');
+
+                    // Автоостановка через 25 секунд
+                    if (Date.now() - startTime > 25000) {
+                        clearInterval(interval);
+                        ws.close();
+                    }
+                }
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

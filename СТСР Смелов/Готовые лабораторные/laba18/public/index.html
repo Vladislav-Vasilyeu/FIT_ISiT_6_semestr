@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Лабораторная работа 18</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      line-height: 1.55;
+      color: #1f2933;
+      background: #f6f7f9;
+    }
+
+    main {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 32px 20px 48px;
+      background: #ffffff;
+      min-height: 100vh;
+    }
+
+    h1, h2 {
+      margin: 0 0 16px;
+      color: #111827;
+    }
+
+    h1 {
+      font-size: 30px;
+    }
+
+    h2 {
+      margin-top: 32px;
+      font-size: 22px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+    }
+
+    th, td {
+      border: 1px solid #d6d9de;
+      padding: 9px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #e8eef5;
+    }
+
+    code {
+      padding: 2px 5px;
+      border-radius: 4px;
+      background: #edf2f7;
+      font-family: Consolas, monospace;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Лабораторная работа 18</h1>
+  <p>HTTP-сервер на Node.js использует Sequelize для работы с базой данных MS SQL Server.</p>
+
+  <h2>Маршруты API</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>Метод</th>
+      <th>URI</th>
+      <th>Назначение</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr><td>GET</td><td><code>/api/faculties</code></td><td>Список факультетов</td></tr>
+    <tr><td>GET</td><td><code>/api/pulpits</code></td><td>Список кафедр</td></tr>
+    <tr><td>GET</td><td><code>/api/subjects</code></td><td>Список дисциплин</td></tr>
+    <tr><td>GET</td><td><code>/api/auditoriumstypes</code></td><td>Список типов аудиторий</td></tr>
+    <tr><td>GET</td><td><code>/api/auditorims</code></td><td>Список аудиторий</td></tr>
+    <tr><td>POST</td><td><code>/api/*</code></td><td>Добавление записи из JSON</td></tr>
+    <tr><td>PUT</td><td><code>/api/*</code></td><td>Изменение записи из JSON</td></tr>
+    <tr><td>DELETE</td><td><code>/api/*/:id</code></td><td>Удаление записи по коду</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Ответы на вопросы</h2>
+  <ol>
+    <li><strong>ORM</strong> - технология, которая отображает таблицы базы данных на объекты языка программирования и позволяет выполнять операции с данными через модели.</li>
+    <li>Для работы Sequelize с Microsoft SQL Server нужно установить дополнительный драйвер <code>tedious</code>.</li>
+    <li><strong>Sequelize-схема</strong> - описание модели: имя таблицы, набор полей, типы данных, ключи, ограничения и связи с другими моделями.</li>
+    <li>SELECT-запрос выполняют методы <code>findAll</code>, <code>findOne</code>, <code>findByPk</code> или raw-запрос через <code>sequelize.query</code>.</li>
+    <li>INSERT-запрос выполняет метод <code>create</code>.</li>
+    <li>UPDATE-запрос выполняют методы <code>update</code> или <code>instance.update</code>.</li>
+    <li>DELETE-запрос выполняют методы <code>destroy</code> или <code>instance.destroy</code>.</li>
+    <li><code>sequelizeSchema.hasMany</code> задает связь «один ко многим»: одна запись исходной модели может иметь много связанных записей другой модели.</li>
+    <li><strong>Raw query</strong> - SQL-запрос, написанный вручную и выполненный через Sequelize без построения запроса методами модели.</li>
+    <li><strong>Code first</strong> - подход, при котором структура базы данных описывается в коде приложения, а затем по этому описанию создается или изменяется БД.</li>
+    <li><strong>Транзакция</strong> - группа операций с базой данных, которая выполняется как единое целое: все операции фиксируются вместе или вместе отменяются.</li>
+  </ol>
+</main>
+</body>
+</html>

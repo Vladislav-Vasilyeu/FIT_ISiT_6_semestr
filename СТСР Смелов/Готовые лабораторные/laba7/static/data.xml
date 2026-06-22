@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<demo>
+  <message>Это демонстрация XML</message>
+  <item>1</item>
+  <item>2</item>
+</demo>

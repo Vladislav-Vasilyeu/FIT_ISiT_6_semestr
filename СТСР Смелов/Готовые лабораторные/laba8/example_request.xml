@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<request>
+    <xx value="10"/>
+    <xx value="20"/>
+    <xx value="30"/>
+    <mm value="Hello"/>
+    <mm value="World"/>
+</request>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laba4</title>
+</head>
+
+<body>
+    <div class="get_method">
+        <div id="list_of_data"></div>
+        <button id="get_method" onclick="get()">Получить данные</button>
+    </div>
+    <div class="form">
+        <div class="data">
+            <div class="row">
+                <label for="">Идентификатор</label>
+                <input type="number" id="id">
+            </div>
+            <div class="row">
+                <label for="">ФИО</label>
+                <input type="text" id="name_of_person">
+            </div>
+            <div class="row">
+                <label for="">Дата рождения</label>
+                <input type="date" id="bday">
+            </div>
+        </div>
+        <button id="post_method" onclick="post()">Добавить данные</button>
+        <button id="put_method" onclick="put()">Изменить данные</button>
+        <button id="delete_method" onclick="del()">Удалить данные</button>
+        <button id="data" onclick="get_data()">asdf</button>
+    </div>
+
+
+    <script>
+        const get_data = () => {
+            console.log('click');
+            console.log(name_of_person);
+        }
+        let get_methon = document.getElementById('list_of_data');
+        const get = () => {
+            console.log("GET");
+            fetch('http://localhost:5000/api/db', {
+                method: 'GET', mode: "no-cors",
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+            })
+                .then(response => { return response.json(); })
+                .then((data) => {
+                    console.log(data);
+                    get_methon.innerHTML = '';
+                    data.forEach(element => {
+                        get_methon.innerHTML += (element.id + '. ' + element.name + ' ' + element.bday + '<br/>');
+                    });
+                });
+
+        }
+        const post = () => {
+            console.log("POST");
+
+            fetch('http://localhost:5000/api/db', {
+                method: 'POST', mode: "no-cors",
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({ id: id.value, name: name_of_person.value, bday: bday.value })
+            })
+                .then(response => { return response.json(); })
+                .then((data) => {
+                    console.log(data);
+
+                });
+        }
+        const put = () => {
+            console.log("PUT");
+            console.log(parseInt(id.value))
+            fetch('http://localhost:5000/api/db', {
+                method: 'PUT', 
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({ id: parseInt(id.value), name: name_of_person.value, bday: bday.value })
+            })
+                .then(response => { return response.json(); })
+                .then((data) => {
+                    console.log(data);
+
+                });
+        }
+        const del = () => {
+            console.log("DELETE");
+            fetch(`http://localhost:5000/api/db?id=${id.value}`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+            })
+                .then(response => { return response.json(); })
+                .then((data) => {
+                    console.log(data);
+                });
+        }
+        
+    </script>
+</body> 
+
+</html>

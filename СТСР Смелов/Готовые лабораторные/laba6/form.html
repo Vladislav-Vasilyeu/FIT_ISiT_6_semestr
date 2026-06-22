@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>06-02 sendmail</title>
+</head>
+<body>
+    <h1>Отправка письма через sendmail</h1>
+    <form method="POST" action="/send">
+        <label>От: <input type="email" name="from" required></label><br><br>
+        <label>Кому: <input type="email" name="to" required></label><br><br>
+        <label>Тема: <input type="text" name="subject" value="Сообщение от 06-02"></label><br><br>
+        <label>Сообщение:<br>
+            <textarea name="message" rows="8" cols="60" required></textarea>
+        </label><br><br>
+        <button type="submit">Отправить</button>
+    </form>
+</body>
+</html>

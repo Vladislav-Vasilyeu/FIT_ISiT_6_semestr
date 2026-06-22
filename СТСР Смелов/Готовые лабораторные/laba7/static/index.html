@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>07-01 Static Server Demo</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <h1>07-01 Static Server Demo</h1>
+
+  <section>
+    <h2>CSS</h2>
+    <p>Файл <code>style.css</code> подключен через <code>&lt;link&gt;</code>.</p>
+  </section>
+
+  <section>
+    <h2>JavaScript</h2>
+    <p>Файл <code>script.js</code> загружен через <code>&lt;script&gt;</code>.</p>
+  </section>
+
+  <section>
+    <h2>Image</h2>
+    <img src="/sample.png" alt="sample image" width="150" />
+  </section>
+
+  <section>
+    <h2>Video</h2>
+    <video controls width="320">
+      <source src="/sample.mp4" type="video/mp4" />
+      Ваш браузер не поддерживает видео.
+    </video>
+  </section>
+
+  <section>
+    <h2>Docx</h2>
+    <a href="/sample.docx" download>Скачать sample.docx</a>
+  </section>
+
+  <section>
+    <h2>JSON &amp; XML via fetch</h2>
+    <button id="jsonBtn">Загрузить JSON</button>
+    <button id="xmlBtn">Загрузить XML</button>
+    <pre id="output"></pre>
+  </section>
+
+  <script src="/script.js"></script>
+</body>
+</html>

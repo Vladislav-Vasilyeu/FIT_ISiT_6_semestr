@@ -1,0 +1,17 @@
+{
+  "name": "laba17-redis",
+  "version": "1.0.0",
+  "description": "Лабораторная работа 17: Redis",
+  "main": "17-01.js",
+  "scripts": {
+    "start": "node 17-01.js",
+    "test:connection": "node 17-01.js",
+    "bench:set-get-del": "node 17-02.js",
+    "bench:incr-decr": "node 17-03.js",
+    "bench:hash": "node 17-04.js",
+    "pubsub": "node 17-05.js"
+  },
+  "dependencies": {
+    "redis": "^4.7.0"
+  }
+}

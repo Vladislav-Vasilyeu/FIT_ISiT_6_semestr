@@ -1,0 +1,11 @@
+{
+  "name": "lab12",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node server.js",
+    "client": "node client.js"
+  },
+  "dependencies": {
+    "eventsource": "^2.0.2"
+  }
+}

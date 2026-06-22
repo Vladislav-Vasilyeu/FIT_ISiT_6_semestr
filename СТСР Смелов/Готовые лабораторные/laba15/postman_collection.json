@@ -1,0 +1,499 @@
+{
+  "info": {
+    "name": "Laba15 MongoDB API checks",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "facultyCode",
+      "value": "TEST_FAC"
+    },
+    {
+      "key": "pulpitCode",
+      "value": "TEST_PULP"
+    }
+  ],
+  "item": [
+    {
+      "name": "Faculties",
+      "item": [
+        {
+          "name": "GET /api/faculties",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/faculties"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response is an array', function () {",
+                  "  pm.expect(pm.response.json()).to.be.an('array');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST /api/faculties",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"faculty\": \"{{facultyCode}}\",\n  \"faculty_name\": \"Test faculty\"\n}"
+            },
+            "url": "{{baseUrl}}/api/faculties"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 201', function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "pm.test('Created faculty is returned', function () {",
+                  "  const json = pm.response.json();",
+                  "  pm.expect(json.faculty).to.eql(pm.collectionVariables.get('facultyCode'));",
+                  "  pm.expect(json.faculty_name).to.eql('Test faculty');",
+                  "  pm.expect(json._id).to.exist;",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET /api/faculties contains created faculty",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/faculties"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Created faculty exists in list', function () {",
+                  "  const list = pm.response.json();",
+                  "  const facultyCode = pm.collectionVariables.get('facultyCode');",
+                  "  pm.expect(list.some(item => item.faculty === facultyCode)).to.eql(true);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "PUT /api/faculties",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"faculty\": \"{{facultyCode}}\",\n  \"faculty_name\": \"Updated test faculty\"\n}"
+            },
+            "url": "{{baseUrl}}/api/faculties"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Update message is returned', function () {",
+                  "  const json = pm.response.json();",
+                  "  pm.expect(json.message).to.eql('Updated');",
+                  "  pm.expect(json.faculty_name).to.eql('Updated test faculty');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "PUT /api/faculties not found",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"faculty\": \"NO_SUCH_FAC\",\n  \"faculty_name\": \"Missing faculty\"\n}"
+            },
+            "url": "{{baseUrl}}/api/faculties"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 404', function () {",
+                  "  pm.response.to.have.status(404);",
+                  "});",
+                  "",
+                  "pm.test('Error message is returned', function () {",
+                  "  pm.expect(pm.response.json().error).to.eql('Faculty not found');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Pulpits",
+      "item": [
+        {
+          "name": "GET /api/pulpits",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/pulpits"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response is an array', function () {",
+                  "  pm.expect(pm.response.json()).to.be.an('array');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST /api/pulpits",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pulpit\": \"{{pulpitCode}}\",\n  \"pulpit_name\": \"Test pulpit\",\n  \"faculty\": \"{{facultyCode}}\"\n}"
+            },
+            "url": "{{baseUrl}}/api/pulpits"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 201', function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "pm.test('Created pulpit is returned', function () {",
+                  "  const json = pm.response.json();",
+                  "  pm.expect(json.pulpit).to.eql(pm.collectionVariables.get('pulpitCode'));",
+                  "  pm.expect(json.pulpit_name).to.eql('Test pulpit');",
+                  "  pm.expect(json.faculty).to.eql(pm.collectionVariables.get('facultyCode'));",
+                  "  pm.expect(json._id).to.exist;",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET /api/pulpits contains created pulpit",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/pulpits"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Created pulpit exists in list', function () {",
+                  "  const list = pm.response.json();",
+                  "  const pulpitCode = pm.collectionVariables.get('pulpitCode');",
+                  "  pm.expect(list.some(item => item.pulpit === pulpitCode)).to.eql(true);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "PUT /api/pulpits",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pulpit\": \"{{pulpitCode}}\",\n  \"pulpit_name\": \"Updated test pulpit\",\n  \"faculty\": \"{{facultyCode}}\"\n}"
+            },
+            "url": "{{baseUrl}}/api/pulpits"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Update message is returned', function () {",
+                  "  const json = pm.response.json();",
+                  "  pm.expect(json.message).to.eql('Updated');",
+                  "  pm.expect(json.pulpit_name).to.eql('Updated test pulpit');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "PUT /api/pulpits not found",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pulpit\": \"NO_SUCH_PULP\",\n  \"pulpit_name\": \"Missing pulpit\",\n  \"faculty\": \"NO_SUCH_FAC\"\n}"
+            },
+            "url": "{{baseUrl}}/api/pulpits"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 404', function () {",
+                  "  pm.response.to.have.status(404);",
+                  "});",
+                  "",
+                  "pm.test('Error message is returned', function () {",
+                  "  pm.expect(pm.response.json().error).to.eql('Pulpit not found');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Cleanup",
+      "item": [
+        {
+          "name": "DELETE /api/pulpits/:pulpit",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/pulpits/{{pulpitCode}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Delete message is returned', function () {",
+                  "  const json = pm.response.json();",
+                  "  pm.expect(json.message).to.eql('Deleted');",
+                  "  pm.expect(json.pulpit).to.eql(pm.collectionVariables.get('pulpitCode'));",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "DELETE /api/faculties/:faculty",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/faculties/{{facultyCode}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Delete message is returned', function () {",
+                  "  const json = pm.response.json();",
+                  "  pm.expect(json.message).to.eql('Deleted');",
+                  "  pm.expect(json.faculty).to.eql(pm.collectionVariables.get('facultyCode'));",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "DELETE /api/pulpits/:pulpit not found",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/pulpits/{{pulpitCode}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 404', function () {",
+                  "  pm.response.to.have.status(404);",
+                  "});",
+                  "",
+                  "pm.test('Error message is returned', function () {",
+                  "  pm.expect(pm.response.json().error).to.eql('Pulpit not found');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "DELETE /api/faculties/:faculty not found",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/faculties/{{facultyCode}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 404', function () {",
+                  "  pm.response.to.have.status(404);",
+                  "});",
+                  "",
+                  "pm.test('Error message is returned', function () {",
+                  "  pm.expect(pm.response.json().error).to.eql('Faculty not found');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Errors",
+      "item": [
+        {
+          "name": "GET unknown route",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/unknown"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 404', function () {",
+                  "  pm.response.to.have.status(404);",
+                  "});",
+                  "",
+                  "pm.test('Route not found error is returned', function () {",
+                  "  pm.expect(pm.response.json().error).to.eql('Route not found');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST /api/faculties invalid JSON",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{ invalid json"
+            },
+            "url": "{{baseUrl}}/api/faculties"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 500', function () {",
+                  "  pm.response.to.have.status(500);",
+                  "});",
+                  "",
+                  "pm.test('Invalid JSON error is returned', function () {",
+                  "  pm.expect(pm.response.json().error).to.eql('Invalid JSON');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

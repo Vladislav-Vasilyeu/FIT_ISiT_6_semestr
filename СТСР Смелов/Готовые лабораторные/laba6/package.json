@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@vladislav_vasilyev/m0603": "^1.0.1",
+    "nodemailer": "^8.0.4"
+  }
+}

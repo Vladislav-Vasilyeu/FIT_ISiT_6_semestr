@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XMLHttpRequest</title>
+</head>
+<body>
+    <h1>Факультет Информационных технологий</h1>
+    <h1>3 курс</h1>
+    <h1>1 группа</h1>
+    <div id="name"></div>
+
+    <script>
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', 'http://localhost:5000/api/name', true);
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                document.getElementById('name').innerHTML = '<h1>' + xhr.responseText + '</h1>';
+            }
+        };
+        xhr.onerror = function() {
+            document.getElementById('name').innerHTML = '<h1>Ошибка загрузки данных</h1>';
+        };
+        xhr.send();
+    </script>
+</body>
+</html>

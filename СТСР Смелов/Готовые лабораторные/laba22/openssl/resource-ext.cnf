@@ -1,0 +1,14 @@
+[v3_server]
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid,issuer
+basicConstraints = critical, CA:false
+keyUsage = critical, digitalSignature, keyEncipherment
+extendedKeyUsage = serverAuth
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = LAB22-ABC
+DNS.2 = ABC
+DNS.3 = localhost
+IP.1 = 127.0.0.1
+

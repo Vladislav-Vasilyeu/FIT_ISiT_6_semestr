@@ -1,0 +1,18 @@
+{
+  "name": "laba21",
+  "version": "1.0.0",
+  "description": "HTTP Authentication: Basic, Digest, Forms",
+  "main": "21-01.js",
+  "scripts": {
+    "start-01": "node 21-01.js",
+    "start-02": "node 21-02.js",
+    "start-03": "node 21-03.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "passport": "^0.7.0",
+    "passport-http": "^0.3.0",
+    "express-session": "^1.17.3",
+    "body-parser": "^1.20.2"
+  }
+}

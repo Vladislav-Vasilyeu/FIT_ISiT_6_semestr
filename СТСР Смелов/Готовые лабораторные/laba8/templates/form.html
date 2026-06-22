@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Форма ввода - Задание 09</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+
+        p {
+            margin: 15px 0;
+        }
+
+        input,
+        textarea {
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+        }
+
+        input[type="submit"]:hover {
+            background: #0056b3;
+        }
+
+        .field-group {
+            background: #f5f5f5;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        label {
+            display: inline-block;
+            width: 150px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Форма ввода данных (Задание 09)</h2>
+    <form action="/formparameter" method="POST" enctype="application/x-www-form-urlencoded">
+
+        <div class="field-group">
+            <p><label>Текст:</label>
+                <input type="text" name="text_field" placeholder="Введите текст" value="Пример текста">
+            </p>
+            <p><small>type="text" - обычное текстовое поле</small></p>
+        </div>
+
+        <div class="field-group">
+            <p><label>Число:</label>
+                <input type="number" name="number_field" placeholder="Введите число" value="42">
+            </p>
+            <p><small>type="number" - только числовые значения</small></p>
+        </div>
+
+        <div class="field-group">
+            <p><label>Дата:</label>
+                <input type="date" name="date_field" value="2024-01-15">
+            </p>
+            <p><small>type="date" - выбор даты из календаря</small></p>
+        </div>
+
+        <div class="field-group">
+            <p><label>Чекбокс:</label>
+                <input type="checkbox" name="checkbox_field" value="yes" checked> Согласен с условиями
+            </p>
+            <p><small>type="checkbox" - множественный выбор (можно отметить/снять)</small></p>
+        </div>
+
+        <div class="field-group">
+            <p><label>Радиокнопки:</label><br>
+                <input type="radio" name="radio_field" value="option1" checked> Опция 1 (выбрано по умолчанию)<br>
+                <input type="radio" name="radio_field" value="option2"> Опция 2<br>
+                <input type="radio" name="radio_field" value="option3"> Опция 3
+            </p>
+            <p><small>type="radio" - единственный выбор (группа с одинаковым name)</small></p>
+        </div>
+
+        <div class="field-group">
+            <p><label>Текстовая область:</label></p>
+            <textarea name="textarea_field" rows="4" cols="50" placeholder="Введите многострочный текст...">Это пример многострочного текста.
+Можно писать несколько строк.</textarea>
+            <p><small>textarea - для больших текстов (несколько строк)</small></p>
+        </div>
+
+        <div class="field-group">
+            <p><b>Две кнопки отправки с одинаковым name:</b></p>
+            <p>
+                <input type="submit" name="submit_btn" value="Отправить (вариант 1)">
+                <input type="submit" name="submit_btn" value="Отправить (вариант 2)">
+            </p>
+            <p><small>Одинаковый атрибут name="submit_btn", но разные value -
+                    сервер получит значение той кнопки, которую нажали</small></p>
+        </div>
+
+    </form>
+</body>
+
+</html>

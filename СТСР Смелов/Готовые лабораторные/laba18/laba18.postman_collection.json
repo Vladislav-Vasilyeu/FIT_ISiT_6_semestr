@@ -1,0 +1,418 @@
+{
+  "info": {
+    "_postman_id": "4f4518b0-51dc-4d2e-9a2e-2dc84a0a18ff",
+    "name": "Laba 18 - HTTP + Sequelize",
+    "description": "Full CRUD check for laboratory work 18.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "01 Home page",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('status is 200', function () {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "pm.test('returns HTML', function () {",
+              "  pm.expect(pm.response.headers.get('Content-Type')).to.include('text/html');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "02 GET all",
+      "item": [
+        {
+          "name": "GET faculties",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/faculties"
+          }
+        },
+        {
+          "name": "GET pulpits",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/pulpits"
+          }
+        },
+        {
+          "name": "GET subjects",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/subjects"
+          }
+        },
+        {
+          "name": "GET auditoriumstypes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/auditoriumstypes"
+          }
+        },
+        {
+          "name": "GET auditorims",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/auditorims"
+          }
+        }
+      ]
+    },
+    {
+      "name": "03 POST create test data",
+      "item": [
+        {
+          "name": "POST faculty",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"FACULTY\": \"{{facultyCode}}\",\n  \"FACULTY_NAME\": \"Test faculty\"\n}"
+            },
+            "url": "{{baseUrl}}/api/faculties"
+          }
+        },
+        {
+          "name": "POST pulpit",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"PULPIT\": \"{{pulpitCode}}\",\n  \"PULPIT_NAME\": \"Test pulpit\",\n  \"FACULTY\": \"{{facultyCode}}\"\n}"
+            },
+            "url": "{{baseUrl}}/api/pulpits"
+          }
+        },
+        {
+          "name": "POST subject",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"SUBJECT\": \"{{subjectCode}}\",\n  \"SUBJECT_NAME\": \"Test subject\",\n  \"PULPIT\": \"{{pulpitCode}}\"\n}"
+            },
+            "url": "{{baseUrl}}/api/subjects"
+          }
+        },
+        {
+          "name": "POST auditorium type",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"AUDITORIUM_TYPE\": \"{{auditoriumTypeCode}}\",\n  \"AUDITORIUM_TYPENAME\": \"Test auditorium type\"\n}"
+            },
+            "url": "{{baseUrl}}/api/auditoriumstypes"
+          }
+        },
+        {
+          "name": "POST auditorium",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"AUDITORIUM\": \"{{auditoriumCode}}\",\n  \"AUDITORIUM_NAME\": \"Test auditorium\",\n  \"AUDITORIUM_CAPACITY\": 30,\n  \"AUDITORIUM_TYPE\": \"{{auditoriumTypeCode}}\"\n}"
+            },
+            "url": "{{baseUrl}}/api/auditoriums"
+          }
+        }
+      ]
+    },
+    {
+      "name": "04 PUT update test data",
+      "item": [
+        {
+          "name": "PUT faculty",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"FACULTY\": \"{{facultyCode}}\",\n  \"FACULTY_NAME\": \"Updated test faculty\"\n}"
+            },
+            "url": "{{baseUrl}}/api/faculties"
+          }
+        },
+        {
+          "name": "PUT pulpit",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"PULPIT\": \"{{pulpitCode}}\",\n  \"PULPIT_NAME\": \"Updated test pulpit\",\n  \"FACULTY\": \"{{facultyCode}}\"\n}"
+            },
+            "url": "{{baseUrl}}/api/pulpits"
+          }
+        },
+        {
+          "name": "PUT subject",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"SUBJECT\": \"{{subjectCode}}\",\n  \"SUBJECT_NAME\": \"Updated test subject\",\n  \"PULPIT\": \"{{pulpitCode}}\"\n}"
+            },
+            "url": "{{baseUrl}}/api/subjects"
+          }
+        },
+        {
+          "name": "PUT auditorium type",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"AUDITORIUM_TYPE\": \"{{auditoriumTypeCode}}\",\n  \"AUDITORIUM_TYPENAME\": \"Updated test auditorium type\"\n}"
+            },
+            "url": "{{baseUrl}}/api/auditoriumstypes"
+          }
+        },
+        {
+          "name": "PUT auditorium",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"AUDITORIUM\": \"{{auditoriumCode}}\",\n  \"AUDITORIUM_NAME\": \"Updated test auditorium\",\n  \"AUDITORIUM_CAPACITY\": 40,\n  \"AUDITORIUM_TYPE\": \"{{auditoriumTypeCode}}\"\n}"
+            },
+            "url": "{{baseUrl}}/api/auditoriums"
+          }
+        },
+        {
+          "name": "PUT auditorium by task typo route",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"AUDITORIUM\": \"{{auditoriumCode}}\",\n  \"AUDITORIUM_NAME\": \"Updated through /auditorims\",\n  \"AUDITORIUM_CAPACITY\": 45,\n  \"AUDITORIUM_TYPE\": \"{{auditoriumTypeCode}}\"\n}"
+            },
+            "url": "{{baseUrl}}/auditorims"
+          }
+        }
+      ]
+    },
+    {
+      "name": "05 GET after update",
+      "item": [
+        {
+          "name": "GET faculties",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/faculties"
+          }
+        },
+        {
+          "name": "GET pulpits",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/pulpits"
+          }
+        },
+        {
+          "name": "GET subjects",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/subjects"
+          }
+        },
+        {
+          "name": "GET auditorium types alias",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/auditoriumtypes"
+          }
+        },
+        {
+          "name": "GET auditoriums alias",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/auditoriums"
+          }
+        }
+      ]
+    },
+    {
+      "name": "06 DELETE test data",
+      "item": [
+        {
+          "name": "DELETE subject",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/api/subjects/{{subjectCode}}"
+          }
+        },
+        {
+          "name": "DELETE auditorium",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/api/auditorims/{{auditoriumCode}}"
+          }
+        },
+        {
+          "name": "DELETE pulpit",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/api/pulpits/{{pulpitCode}}"
+          }
+        },
+        {
+          "name": "DELETE auditorium type",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/api/auditoriumtypes/{{auditoriumTypeCode}}"
+          }
+        },
+        {
+          "name": "DELETE faculty",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/api/faculties/{{facultyCode}}"
+          }
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "pm.test('status is successful', function () {",
+          "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+          "});",
+          "",
+          "const contentType = pm.response.headers.get('Content-Type') || '';",
+          "if (contentType.includes('application/json')) {",
+          "  pm.test('response is valid JSON', function () {",
+          "    pm.response.json();",
+          "  });",
+          "}"
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "facultyCode",
+      "value": "TST",
+      "type": "string"
+    },
+    {
+      "key": "pulpitCode",
+      "value": "TSTP",
+      "type": "string"
+    },
+    {
+      "key": "subjectCode",
+      "value": "TSTS",
+      "type": "string"
+    },
+    {
+      "key": "auditoriumTypeCode",
+      "value": "TSTA",
+      "type": "string"
+    },
+    {
+      "key": "auditoriumCode",
+      "value": "999-1",
+      "type": "string"
+    }
+  ]
+}

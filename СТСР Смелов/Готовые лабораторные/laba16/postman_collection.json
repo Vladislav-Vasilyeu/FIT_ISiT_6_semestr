@@ -1,0 +1,396 @@
+{
+  "info": {
+    "_postman_id": "a1c06b03-42c1-4bb2-bd8a-laba16graphql",
+    "name": "Laba16 GraphQL MSSQL",
+    "description": "Postman collection for laboratory work 16 GraphQL server.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000/graphql"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health - GraphQL schema",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "{\n  __typename\n}",
+            "variables": ""
+          }
+        },
+        "url": "{{baseUrl}}"
+      }
+    },
+    {
+      "name": "getFaculties - all",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "query {\n  getFaculties {\n    faculty\n    facultyName\n  }\n}",
+            "variables": ""
+          }
+        },
+        "url": "{{baseUrl}}"
+      }
+    },
+    {
+      "name": "getFaculties - by faculty",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "query ($faculty: String) {\n  getFaculties(faculty: $faculty) {\n    faculty\n    facultyName\n  }\n}",
+            "variables": "{\n  \"faculty\": \"ИД\"\n}"
+          }
+        },
+        "url": "{{baseUrl}}"
+      }
+    },
+    {
+      "name": "getTeachers - all",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "query {\n  getTeachers {\n    teacher\n    teacherName\n    pulpit\n  }\n}",
+            "variables": ""
+          }
+        },
+        "url": "{{baseUrl}}"
+      }
+    },
+    {
+      "name": "getTeachers - by teacher",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "query ($teacher: String) {\n  getTeachers(teacher: $teacher) {\n    teacher\n    teacherName\n    pulpit\n  }\n}",
+            "variables": "{\n  \"teacher\": \"ТЕСТ\"\n}"
+          }
+        },
+        "url": "{{baseUrl}}"
+      }
+    },
+    {
+      "name": "getPulpits - all",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "query {\n  getPulpits {\n    pulpit\n    pulpitName\n    faculty\n  }\n}",
+            "variables": ""
+          }
+        },
+        "url": "{{baseUrl}}"
+      }
+    },
+    {
+      "name": "getPulpits - by pulpit",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "query ($pulpit: String) {\n  getPulpits(pulpit: $pulpit) {\n    pulpit\n    pulpitName\n    faculty\n  }\n}",
+            "variables": "{\n  \"pulpit\": \"ТК\"\n}"
+          }
+        },
+        "url": "{{baseUrl}}"
+      }
+    },
+    {
+      "name": "getSubjects - all",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "query {\n  getSubjects {\n    subject\n    subjectName\n    pulpit\n  }\n}",
+            "variables": ""
+          }
+        },
+        "url": "{{baseUrl}}"
+      }
+    },
+    {
+      "name": "getSubjects - by subject",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "query ($subject: String) {\n  getSubjects(subject: $subject) {\n    subject\n    subjectName\n    pulpit\n  }\n}",
+            "variables": "{\n  \"subject\": \"ТД\"\n}"
+          }
+        },
+        "url": "{{baseUrl}}"
+      }
+    },
+    {
+      "name": "getTeachersByFaculty",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "query ($faculty: String!) {\n  getTeachersByFaculty(faculty: $faculty) {\n    teacher\n    teacherName\n    pulpit\n  }\n}",
+            "variables": "{\n  \"faculty\": \"ИД\"\n}"
+          }
+        },
+        "url": "{{baseUrl}}"
+      }
+    },
+    {
+      "name": "getSubjectsByFaculties",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "query ($faculty: String!) {\n  getSubjectsByFaculties(faculty: $faculty) {\n    pulpit\n    pulpitName\n    faculty\n    subjects {\n      subject\n      subjectName\n      pulpit\n    }\n  }\n}",
+            "variables": "{\n  \"faculty\": \"ИД\"\n}"
+          }
+        },
+        "url": "{{baseUrl}}"
+      }
+    },
+    {
+      "name": "setFaculty",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "mutation ($faculty: FacultyInput!) {\n  setFaculty(faculty: $faculty) {\n    faculty\n    facultyName\n  }\n}",
+            "variables": "{\n  \"faculty\": {\n    \"faculty\": \"ТСТ\",\n    \"facultyName\": \"Тестовый факультет\"\n  }\n}"
+          }
+        },
+        "url": "{{baseUrl}}"
+      }
+    },
+    {
+      "name": "setPulpit",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "mutation ($pulpit: PulpitInput!) {\n  setPulpit(pulpit: $pulpit) {\n    pulpit\n    pulpitName\n    faculty\n  }\n}",
+            "variables": "{\n  \"pulpit\": {\n    \"pulpit\": \"ТК\",\n    \"pulpitName\": \"Тестовая кафедра\",\n    \"faculty\": \"ТСТ\"\n  }\n}"
+          }
+        },
+        "url": "{{baseUrl}}"
+      }
+    },
+    {
+      "name": "setTeacher",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "mutation ($teacher: TeacherInput!) {\n  setTeacher(teacher: $teacher) {\n    teacher\n    teacherName\n    pulpit\n  }\n}",
+            "variables": "{\n  \"teacher\": {\n    \"teacher\": \"ТЕСТ\",\n    \"teacherName\": \"Тестовый преподаватель\",\n    \"pulpit\": \"ТК\"\n  }\n}"
+          }
+        },
+        "url": "{{baseUrl}}"
+      }
+    },
+    {
+      "name": "setSubject",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "mutation ($subject: SubjectInput!) {\n  setSubject(subject: $subject) {\n    subject\n    subjectName\n    pulpit\n  }\n}",
+            "variables": "{\n  \"subject\": {\n    \"subject\": \"ТД\",\n    \"subjectName\": \"Тестовая дисциплина\",\n    \"pulpit\": \"ТК\"\n  }\n}"
+          }
+        },
+        "url": "{{baseUrl}}"
+      }
+    },
+    {
+      "name": "delSubject",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "mutation ($subject: SubjectInput!) {\n  delSubject(subject: $subject)\n}",
+            "variables": "{\n  \"subject\": {\n    \"subject\": \"ТД\"\n  }\n}"
+          }
+        },
+        "url": "{{baseUrl}}"
+      }
+    },
+    {
+      "name": "delTeacher",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "mutation ($teacher: TeacherInput!) {\n  delTeacher(teacher: $teacher)\n}",
+            "variables": "{\n  \"teacher\": {\n    \"teacher\": \"ТЕСТ\"\n  }\n}"
+          }
+        },
+        "url": "{{baseUrl}}"
+      }
+    },
+    {
+      "name": "delPulpit",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "mutation ($pulpit: PulpitInput!) {\n  delPulpit(pulpit: $pulpit)\n}",
+            "variables": "{\n  \"pulpit\": {\n    \"pulpit\": \"ТК\"\n  }\n}"
+          }
+        },
+        "url": "{{baseUrl}}"
+      }
+    },
+    {
+      "name": "delFaculty",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "mutation ($faculty: FacultyInput!) {\n  delFaculty(faculty: $faculty)\n}",
+            "variables": "{\n  \"faculty\": {\n    \"faculty\": \"ТСТ\"\n  }\n}"
+          }
+        },
+        "url": "{{baseUrl}}"
+      }
+    }
+  ]
+}

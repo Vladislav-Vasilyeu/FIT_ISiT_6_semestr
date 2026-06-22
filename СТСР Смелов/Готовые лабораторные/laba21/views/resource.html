@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RESOURCE - {{authType}}</title>
+    <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="icon">📦</div>
+        <h1 class="success">RESOURCE</h1>
+        <p>{{message}}</p>
+        <div class="info-card">
+            <div class="info-item"><strong>👤 Пользователь:</strong> {{username}}</div>
+            <div class="info-item"><strong>⏰ Время входа:</strong> {{loginTime}}</div>
+            <div class="info-item"><strong>🔐 Тип:</strong> {{authType}}</div>
+        </div>
+        <div class="links">
+            <a href="/logout" class="btn btn-danger">🚪 Выйти</a>
+            <a href="/resource" class="btn btn-secondary">🔄 Обновить</a>
+        </div>
+        <footer>© Лабораторная работа 21 • Защищённый ресурс</footer>
+    </div>
+    <script src="/public/main.js"></script>
+</body>
+</html>

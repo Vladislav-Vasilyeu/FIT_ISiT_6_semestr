@@ -1,0 +1,442 @@
+{
+  "info": {
+    "name": "Laba20 Express Handlebars Phonebook",
+    "_postman_id": "a6c5a2b0-2d3d-4d68-9f22-9f5a8f24f020",
+    "description": "Postman tests for lab 20: Express + Handlebars + static files phonebook. Before running, start the app with `npm start`.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "testName",
+      "value": ""
+    },
+    {
+      "key": "testPhone",
+      "value": ""
+    },
+    {
+      "key": "contactId",
+      "value": ""
+    },
+    {
+      "key": "updatedName",
+      "value": ""
+    },
+    {
+      "key": "updatedPhone",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "01 GET / shows phonebook",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            ""
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response is HTML page', function () {",
+              "  pm.expect(pm.response.headers.get('Content-Type')).to.include('text/html');",
+              "  pm.expect(pm.response.text()).to.include('<!doctype html>');",
+              "});",
+              "",
+              "pm.test('Home page has Add link and update row links', function () {",
+              "  const html = pm.response.text();",
+              "  pm.expect(html).to.include('href=\"/Add\"');",
+              "  pm.expect(html).to.match(/href=\"\\/Update\\?id=\\d+\"|Пусто|РџСѓСЃС‚Рѕ/);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "02 GET /Add shows add form",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/Add",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "Add"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Add form posts to /Add', function () {",
+              "  const html = pm.response.text();",
+              "  pm.expect(html).to.include('method=\"POST\"');",
+              "  pm.expect(html).to.include('action=\"/Add\"');",
+              "  pm.expect(html).to.include('name=\"name\"');",
+              "  pm.expect(html).to.include('name=\"phone\"');",
+              "});",
+              "",
+              "pm.test('Existing row buttons are blocked on Add page', function () {",
+              "  const html = pm.response.text();",
+              "  pm.expect(html).to.match(/class=\"row-button disabled\"|Пусто|РџСѓСЃС‚Рѕ/);",
+              "});",
+              "",
+              "pm.test('Cancel button returns to home', function () {",
+              "  pm.expect(pm.response.text()).to.include('href=\"/\"');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "03 POST /Add creates a contact",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "const stamp = Date.now();",
+              "pm.collectionVariables.set('testName', 'Postman Test ' + stamp);",
+              "pm.collectionVariables.set('testPhone', '+375291' + String(stamp).slice(-6));"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Add request succeeds', function () {",
+              "  pm.expect([200, 302]).to.include(pm.response.code);",
+              "});",
+              "",
+              "pm.test('Created contact is shown on resulting home page', function () {",
+              "  const html = pm.response.text();",
+              "  const name = pm.collectionVariables.get('testName');",
+              "  const phone = pm.collectionVariables.get('testPhone');",
+              "  pm.expect(html).to.include(name);",
+              "  pm.expect(html).to.include(phone);",
+              "});",
+              "",
+              "pm.test('Created contact id is extracted for next requests', function () {",
+              "  const html = pm.response.text();",
+              "  const name = pm.collectionVariables.get('testName').replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&');",
+              "  const match = html.match(new RegExp('href=\"/Update\\\\?id=(\\\\d+)\"[\\\\s\\\\S]*?' + name));",
+              "  pm.expect(match, 'Update link for created contact').to.not.be.null;",
+              "  pm.collectionVariables.set('contactId', match[1]);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          }
+        ],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "name",
+              "value": "{{testName}}",
+              "type": "text"
+            },
+            {
+              "key": "phone",
+              "value": "{{testPhone}}",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/Add",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "Add"
+          ]
+        }
+      }
+    },
+    {
+      "name": "04 GET /Update shows selected contact",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/Update?id={{contactId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "Update"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": "{{contactId}}"
+            }
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Update form contains selected contact', function () {",
+              "  const html = pm.response.text();",
+              "  pm.expect(html).to.include('action=\"/Update\"');",
+              "  pm.expect(html).to.include('action=\"/Delete\"');",
+              "  pm.expect(html).to.include('name=\"id\" value=\"' + pm.collectionVariables.get('contactId') + '\"');",
+              "  pm.expect(html).to.include(pm.collectionVariables.get('testName'));",
+              "  pm.expect(html).to.include(pm.collectionVariables.get('testPhone'));",
+              "});",
+              "",
+              "pm.test('Rows are blocked on Update page', function () {",
+              "  pm.expect(pm.response.text()).to.include('class=\"row-button disabled\"');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "05 POST /Update changes contact",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.collectionVariables.set('updatedName', pm.collectionVariables.get('testName') + ' Updated');",
+              "pm.collectionVariables.set('updatedPhone', '+375292' + Date.now().toString().slice(-6));"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Update request succeeds', function () {",
+              "  pm.expect([200, 302]).to.include(pm.response.code);",
+              "});",
+              "",
+              "pm.test('Updated contact is shown and old name is absent', function () {",
+              "  const html = pm.response.text();",
+              "  pm.expect(html).to.include(pm.collectionVariables.get('updatedName'));",
+              "  pm.expect(html).to.include(pm.collectionVariables.get('updatedPhone'));",
+              "  pm.expect(html).to.not.include(pm.collectionVariables.get('testName') + '</a>');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          }
+        ],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "id",
+              "value": "{{contactId}}",
+              "type": "text"
+            },
+            {
+              "key": "name",
+              "value": "{{updatedName}}",
+              "type": "text"
+            },
+            {
+              "key": "phone",
+              "value": "{{updatedPhone}}",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/Update",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "Update"
+          ]
+        }
+      }
+    },
+    {
+      "name": "06 POST /Delete removes contact",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          }
+        ],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "id",
+              "value": "{{contactId}}",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/Delete",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "Delete"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Delete request succeeds', function () {",
+              "  pm.expect([200, 302]).to.include(pm.response.code);",
+              "});",
+              "",
+              "pm.test('Deleted contact is not shown on home page', function () {",
+              "  const html = pm.response.text();",
+              "  pm.expect(html).to.not.include(pm.collectionVariables.get('updatedName'));",
+              "  pm.expect(html).to.not.include(pm.collectionVariables.get('updatedPhone'));",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "07 GET static CSS file",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/css/style.css",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "css",
+            "style.css"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('CSS file is returned', function () {",
+              "  pm.response.to.have.status(200);",
+              "  pm.expect(pm.response.headers.get('Content-Type')).to.include('text/css');",
+              "  pm.expect(pm.response.text()).to.not.be.empty;",
+              "});",
+              "",
+              "pm.test('Static response has cache validators', function () {",
+              "  pm.expect(pm.response.headers.get('ETag')).to.exist;",
+              "  pm.expect(pm.response.headers.get('Last-Modified')).to.exist;",
+              "  pm.expect(pm.response.headers.get('Cache-Control')).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "08 GET static JS file",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/js/main.js",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "js",
+            "main.js"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('JS file is returned', function () {",
+              "  pm.response.to.have.status(200);",
+              "  pm.expect(pm.response.headers.get('Content-Type')).to.include('javascript');",
+              "});",
+              "",
+              "pm.test('JS contains delete button blocking logic', function () {",
+              "  const js = pm.response.text();",
+              "  pm.expect(js).to.include('deleteBtn');",
+              "  pm.expect(js).to.include('disabled');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    }
+  ]
+}

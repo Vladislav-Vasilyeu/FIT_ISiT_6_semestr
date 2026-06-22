@@ -1,0 +1,12 @@
+{
+  "name": "laba22-https",
+  "version": "1.0.0",
+  "description": "Лабораторная работа 22: HTTPS-сервер с сертификатом Resource.",
+  "main": "22-01/server.js",
+  "scripts": {
+    "start": "node 22-01/server.js",
+    "certs": "powershell -ExecutionPolicy Bypass -File scripts/generate-certs.ps1",
+    "import-ca": "powershell -ExecutionPolicy Bypass -File scripts/import-ca.ps1"
+  },
+  "license": "UNLICENSED"
+}

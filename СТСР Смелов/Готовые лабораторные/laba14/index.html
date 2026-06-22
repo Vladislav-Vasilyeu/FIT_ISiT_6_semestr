@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторная 14 - Кафедры</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Управление кафедрами (PULPIT)</h1>
+
+        <div>
+            <input type="text" id="pulpitCode" placeholder="Код кафедры" />
+            <input type="text" id="pulpitName" placeholder="Название кафедры" style="width:380px;" />
+            <input type="text" id="facultyCode" placeholder="Код факультета" />
+            <button class="add" onclick="addPulpit()">Добавить</button>
+        </div>
+
+        <button onclick="loadPulpits()">🔄 Обновить список</button>
+
+        <table id="pulpitsTable"></table>
+        <div id="message"></div>
+    </div>
+
+    <script>
+        const apiUrl = '/api/pulpits';
+        const msg = document.getElementById('message');
+
+        function showMsg(text, isError = false) {
+            msg.innerHTML = `<span class="${isError ? 'error' : 'success'}">${text}</span>`;
+            setTimeout(() => msg.innerHTML = '', 4000);
+        }
+
+        async function loadPulpits() {
+            const res = await fetch(apiUrl);
+            const data = await res.json();
+
+            let html = `<tr><th>Код</th><th>Название</th><th>Факультет</th><th>Действия</th></tr>`;
+            data.forEach(p => {
+                html += `
+                    <tr>
+                        <td>${p.PULPIT}</td>
+                        <td>${p.PULPIT_NAME}</td>
+                        <td>${p.FACULTY}</td>
+                        <td>
+                            <button class="edit" onclick="editPulpit('${p.PULPIT}', '${p.PULPIT_NAME}', '${p.FACULTY}')">Изменить</button>
+                            <button class="delete" onclick="deletePulpit('${p.PULPIT}')">Удалить</button>
+                        </td>
+                    </tr>`;
+            });
+            document.getElementById('pulpitsTable').innerHTML = html;
+        }
+
+        async function addPulpit() {
+            const body = {
+                PULPIT: document.getElementById('pulpitCode').value.trim(),
+                PULPIT_NAME: document.getElementById('pulpitName').value.trim(),
+                FACULTY: document.getElementById('facultyCode').value.trim()
+            };
+
+            if (!body.PULPIT || !body.PULPIT_NAME || !body.FACULTY) {
+                return showMsg('Заполните все поля!', true);
+            }
+
+            await fetch(apiUrl, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(body) });
+            showMsg('Кафедра добавлена!');
+            loadPulpits();
+        }
+
+        function editPulpit(code, name, faculty) {
+            const newName = prompt('Новое название кафедры:', name);
+            const newFaculty = prompt('Новый код факультета:', faculty);
+
+            if (newName === null || newFaculty === null) return;
+
+            fetch(apiUrl, {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    PULPIT: code,
+                    PULPIT_NAME: newName,
+                    FACULTY: newFaculty
+                })
+            }).then(() => {
+                showMsg('Кафедра обновлена!');
+                loadPulpits();
+            });
+        }
+
+        async function deletePulpit(id) {
+            if (!confirm(`Удалить кафедру ${id}?`)) return;
+            await fetch(`/api/pulpits/${id}`, { method: 'DELETE' });
+            showMsg('Кафедра удалена');
+            loadPulpits();
+        }
+
+        window.onload = loadPulpits;
+    </script>
+</body>
+</html>
