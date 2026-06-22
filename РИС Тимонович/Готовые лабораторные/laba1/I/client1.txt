@@ -1,0 +1,121 @@
+Улучшенный клиент запущен
+
+=== Tc = 1000 мс ===
+Запрос # 1 | correction =   5454 | Cc = 5454
+Запрос # 2 | correction =     10 | Cc = 6464
+Запрос # 3 | correction =     16 | Cc = 7480
+Запрос # 4 | correction =     38 | Cc = 8518
+Запрос # 5 | correction =     23 | Cc = 9541
+Запрос # 6 | correction =     16 | Cc = 10557
+Запрос # 7 | correction =     17 | Cc = 11574
+Запрос # 8 | correction =     13 | Cc = 12587
+Запрос # 9 | correction =     33 | Cc = 13620
+Запрос #10 | correction =     30 | Cc = 14650
+
+Для Tc = 1000:
+Max correction     : 5454
+Min correction     : 10
+Среднее correction : 565.00
+
+=== Tc = 3000 мс ===
+Запрос # 1 | correction =   1027 | Cc = 16677
+Запрос # 2 | correction =     20 | Cc = 19697
+Запрос # 3 | correction =     15 | Cc = 22712
+Запрос # 4 | correction =     17 | Cc = 25729
+Запрос # 5 | correction =     16 | Cc = 28745
+Запрос # 6 | correction =     30 | Cc = 31775
+Запрос # 7 | correction =     31 | Cc = 34806
+Запрос # 8 | correction =     16 | Cc = 37822
+Запрос # 9 | correction =     32 | Cc = 40854
+Запрос #10 | correction =     15 | Cc = 43869
+
+Для Tc = 3000:
+Max correction     : 1027
+Min correction     : 15
+Среднее correction : 121.90
+
+=== Tc = 6000 мс ===
+Запрос # 1 | correction =   1548 | Cc = 48417
+Запрос # 2 | correction =     15 | Cc = 54432
+Запрос # 3 | correction =     27 | Cc = 60459
+Запрос # 4 | correction =     34 | Cc = 66493
+Запрос # 5 | correction =     17 | Cc = 72510
+Запрос # 6 | correction =     15 | Cc = 78525
+Запрос # 7 | correction =     31 | Cc = 84556
+Запрос # 8 | correction =     16 | Cc = 90572
+Запрос # 9 | correction =     31 | Cc = 96603
+Запрос #10 | correction =     15 | Cc = 102618
+
+Для Tc = 6000:
+Max correction     : 1548
+Min correction     : 15
+Среднее correction : 174.90
+
+=== Tc = 8000 мс ===
+Запрос # 1 | correction =   1031 | Cc = 109649
+Запрос # 2 | correction =     17 | Cc = 117666
+Запрос # 3 | correction =     16 | Cc = 125682
+Запрос # 4 | correction =     15 | Cc = 133697
+Запрос # 5 | correction =     31 | Cc = 141728
+Запрос # 6 | correction =     16 | Cc = 149744
+Запрос # 7 | correction =     32 | Cc = 157776
+Запрос # 8 | correction =     15 | Cc = 165791
+Запрос # 9 | correction =     16 | Cc = 173807
+Запрос #10 | correction =     16 | Cc = 181823
+
+Для Tc = 8000:
+Max correction     : 1031
+Min correction     : 15
+Среднее correction : 120.50
+
+=== Tc = 10000 мс ===
+Запрос # 1 | correction =   1034 | Cc = 190857
+Запрос # 2 | correction =     13 | Cc = 200870
+Запрос # 3 | correction =     16 | Cc = 210886
+Запрос # 4 | correction =     17 | Cc = 220903
+Запрос # 5 | correction =     30 | Cc = 230933
+Запрос # 6 | correction =     15 | Cc = 240948
+Запрос # 7 | correction =     15 | Cc = 250963
+Запрос # 8 | correction =     15 | Cc = 260978
+Запрос # 9 | correction =     17 | Cc = 270995
+Запрос #10 | correction =     31 | Cc = 281026
+
+Для Tc = 10000:
+Max correction     : 1034
+Min correction     : 13
+Среднее correction : 120.30
+
+=== Tc = 12000 мс ===
+Запрос # 1 | correction =   1035 | Cc = 292061
+Запрос # 2 | correction =     11 | Cc = 304072
+Запрос # 3 | correction =     16 | Cc = 316088
+Запрос # 4 | correction =     15 | Cc = 328103
+Запрос # 5 | correction =     32 | Cc = 340135
+Запрос # 6 | correction =     15 | Cc = 352150
+Запрос # 7 | correction =     15 | Cc = 364165
+Запрос # 8 | correction =     32 | Cc = 376197
+Запрос # 9 | correction =     16 | Cc = 388213
+Запрос #10 | correction =     15 | Cc = 400228
+
+Для Tc = 12000:
+Max correction     : 1035
+Min correction     : 11
+Среднее correction : 120.20
+
+=== Tc = 14000 мс ===
+Запрос # 1 | correction =   1049 | Cc = 413277
+Запрос # 2 | correction =     29 | Cc = 427306
+Запрос # 3 | correction =     16 | Cc = 441322
+Запрос # 4 | correction =     16 | Cc = 455338
+Запрос # 5 | correction =     31 | Cc = 469369
+Запрос # 6 | correction =     17 | Cc = 483386
+Запрос # 7 | correction =     15 | Cc = 497401
+Запрос # 8 | correction =     15 | Cc = 511416
+Запрос # 9 | correction =     19 | Cc = 525435
+Запрос #10 | correction =     29 | Cc = 539464
+
+Для Tc = 14000:
+Max correction     : 1049
+Min correction     : 15
+Среднее correction : 123.60
+
