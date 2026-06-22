@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Курсовой проект – Описание</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ФИКСИРОВАННОЕ МЕНЮ -->
+<div class="fixed-header">
+    <div class="nav-container">
+        <div class="site-title">Автожир</div>
+        
+        <button class="burger-menu" onclick="toggleMenu()" aria-label="Открыть меню">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <nav class="nav-menu" id="navMenu">
+            <a href="index.html">Титул</a>
+            <a href="theory.html">Теория</a>
+            <a href="description.html" class="active">Описание</a>
+            <a href="principle.html">Принцип работы</a>
+            <a href="simulator.html">Симулятор</a>
+            <a href="dialog.html">Диалог</a>
+        </nav>
+    </div>
+</div>
+
+<!-- ОСНОВНОЙ КОНТЕНТ -->
+<div class="content-page">
+    <div class="container">
+        <h1 class="page-title">Описание автожира М-24 "Орион"</h1>
+        
+        <div class="text-content">
+            
+            <!-- ИСТОРИЯ СОЗДАНИЯ -->
+            <h2>1. История создания автожира</h2>
+            
+            <div class="clearfix">
+                <div class="image-float-right">
+                    <img src="img/history/juan_cierva.jpg" alt="Хуан де ла Сьерва" class="zoom-image" />
+                    <div class="image-caption">Рис. 1. Хуан де ла Сьерва — изобретатель автожира</div>
+                </div>
+                
+                <p>
+                    <span class="text-to-image" onclick="toggleImage(this)">
+                        Хуан де ла Сьерва
+                        <span class="hidden-image">
+                            <img src="img/history/juan_cierva.jpg" alt="Хуан де ла Сьерва" />
+                        </span>
+                    </span>
+                    — испанский инженер и изобретатель, создатель первого в мире автожира. В 1923 году он совершил 
+                    первый полет на своем аппарате C.1, доказав жизнеспособность идеи использования несущего винта 
+                    в режиме авторотации.
+                </p>
+                <p>
+                    Идея автожира пришла ему после аварии самолета, который потерял скорость на вираже и свалился 
+                    в штопор. Сьерва задумался: как сделать полет безопасным даже при остановке двигателя?
+                </p>
+            </div>
+            
+            <div class="clearfix">
+                <div class="image-float-left">
+                    <img src="img/history/first_autogyro.jpg" alt="Первый автожир" class="zoom-image" />
+                    <div class="image-caption">Рис. 2. Первый автожир C.1 (1923 г.)</div>
+                </div>
+                
+                <p>
+                    В отличие от вертолета, несущий винт автожира не приводится в движение двигателем, 
+                    а вращается за счет набегающего потока воздуха — явления авторотации. Это делает автожир 
+                    исключительно безопасным: при отказе двигателя он планирует на землю с вертикальной скоростью 
+                    всего 3-5 м/с.
+                </p>
+                <p>
+                    В 1928 году Сьерва совершил турне по Европе и Америке, демонстрируя свое изобретение. 
+                    Автожир произвел фурор — он мог взлетать с места длиной всего 30 метров и садиться практически 
+                    на точке.
+                </p>
+            </div>
+            
+            <!-- РАЗВИТИЕ В РОССИИ И СССР -->
+            <h2>2. Развитие автожиров в России и СССР</h2>
+            
+            <div class="clearfix">
+                <div class="image-float-right">
+                    <img src="img/history/kamov.jpg" alt="Н.И. Камов" class="zoom-image" />
+                    <div class="image-caption">Рис. 3. Николай Ильич Камов</div>
+                </div>
+                
+                <p>
+                    В СССР разработкой автожиров занимался выдающийся конструктор 
+                    <span class="text-to-image" onclick="toggleImage(this)">
+                        Николай Ильич Камов
+                        <span class="hidden-image">
+                            <img src="img/history/kamov.jpg" alt="Н.И. Камов" />
+                        </span>
+                    </span>.
+                    Под его руководством были созданы легендарные автожиры А-7, которые активно использовались 
+                    в Великой Отечественной войне для артиллерийской разведки и корректировки огня.
+                </p>
+                <p>
+                    После войны Камов переключился на вертолеты, но идея автожира не была забыта. В 2000-х годах 
+                    интерес к автожирам возродился благодаря их экономичности и безопасности.
+                </p>
+            </div>
+            
+            <!-- АВТОЖИР М-24 ОРИОН -->
+            <h2>3. Автожир М-24 "Орион"</h2>
+            
+            <div class="clearfix">
+                <div class="image-float-left">
+                    <img src="img/autogyro_main.jpg" alt="М-24 Орион" class="zoom-image" />
+                    <div class="image-caption">Рис. 4. Общий вид автожира М-24 "Орион"</div>
+                </div>
+                
+                <p>
+                    М-24 "Орион" — российский двухместный автожир, разработанный компанией "Аэротех" 
+                    (г. Рязань). Первый полет состоялся в 2008 году. Аппарат предназначен для учебно-тренировочных 
+                    полетов, патрулирования, аэрофотосъемки и рекреационного полета.
+                </p>
+                <p>
+                    Конструкция выполнена по схеме с толкающим винтом и хвостовым оперением тавровой формы. 
+                    Фюзеляж — стальной трубчатый каркас с обшивкой из композитных материалов.
+                </p>
+            </div>
+            
+            <h3>3.1. Технические характеристики</h3>
+            
+            <div class="clearfix">
+                <div class="image-float-right">
+                    <img src="img/specs.jpg" alt="Технические характеристики" class="zoom-image" />
+                    <div class="image-caption">Рис. 5. Схема автожира</div>
+                </div>
+                
+                <ul>
+                    <li><strong>Длина:</strong> 4,75 м</li>
+                    <li><strong>Высота:</strong> 2,85 м</li>
+                    <li><strong>Диаметр несущего винта:</strong> 8,4 м</li>
+                    <li><strong>Пустая масса:</strong> 285 кг</li>
+                    <li><strong>Максимальная взлетная масса:</strong> 450 кг</li>
+                    <li><strong>Двигатель:</strong> Rotax 914 (115 л.с.)</li>
+                    <li><strong>Максимальная скорость:</strong> 195 км/ч</li>
+                    <li><strong>Крейсерская скорость:</strong> 160 км/ч</li>
+                    <li><strong>Практический потолок:</strong> 3000 м</li>
+                    <li><strong>Дальность полета:</strong> 600 км</li>
+                </ul>
+            </div>
+            
+            <h3>3.2. Особенности конструкции</h3>
+            
+            <p>
+                Несущий винт трехлопастный, выполнен из алюминиевых сплавов с электрообогревом для предотвращения 
+                обледенения. Предкрылки на лопастях улучшают аэродинамические характеристики и позволяют выполнять 
+                посадку с крутой глиссадой.
+            </p>
+            
+            <!-- ИНТЕРАКТИВНАЯ КАРТА ЧАСТЕЙ -->
+            <div class="parts-section">
+                <div class="parts-title">Конструктивные элементы автожира М-24 "Орион"</div>
+                <div class="parts-container">
+                    <div class="parts-list">
+                        <ul>
+                            <li onclick="showPart('rotor', this)">1. Несущий винт</li>
+                            <li onclick="showPart('cockpit', this)">2. Кабина пилота</li>
+                            <li onclick="showPart('engine', this)">3. Двигатель Rotax</li>
+                            <li onclick="showPart('propeller', this)">4. Толкающий винт</li>
+                            <li onclick="showPart('tail', this)">5. Хвостовое оперение</li>
+                            <li onclick="showPart('chassis', this)">6. Шасси</li>
+                        </ul>
+                    </div>
+                    <div class="parts-display" id="partsDisplay">
+                        <p class="placeholder-text">Нажмите на название части для просмотра</p>
+                        <img src="img/parts/rotor.jpg" id="rotor" alt="Несущий винт" />
+                        <img src="img/parts/cockpit.jpg" id="cockpit" alt="Кабина" />
+                        <img src="img/parts/engine.jpg" id="engine" alt="Двигатель" />
+                        <img src="img/parts/propeller.jpg" id="propeller" alt="Толкающий винт" />
+                        <img src="img/parts/tail.jpg" id="tail" alt="Хвостовое оперение" />
+                        <img src="img/parts/chassis.jpg" id="chassis" alt="Шасси" />
+                    </div>
+                </div>
+            </div>
+            
+            <h3>3.3. Применение</h3>
+            
+            <div class="clearfix">
+                <div class="image-float-right">
+                    <img src="img/application.jpg" alt="Применение автожира" class="zoom-image" />
+                    <div class="image-caption">Рис. 6. Автожир в полете</div>
+                </div>
+                
+                <p>
+                    Автожир М-24 "Орион" сертифицирован по нормам АР МАК и соответствует требованиям 
+                    ультралегкой авиации. Он используется в летных клубах, для патрулирования лесов и трубопроводов, 
+                    аэрофотосъемки и поисково-спасательных операций.
+                </p>
+                <p>
+                    Благодаря низкой стоимости эксплуатации (около 50$ в час) и простоте обслуживания, 
+                    автожир становится популярной альтернативой вертолетам для решения задач на малых высотах 
+                    и небольших дальностях.
+                </p>
+            </div>
+            
+            <!-- ОЗВУЧЕННАЯ КАРТА ИЗ ADOBE ANIMATE -->
+            <div class="animate-container">
+                <div class="animate-title">Интерактивная озвученная карта автожира</div>
+                <p style="margin-bottom: 15px; font-size: 12pt; color: #666;">
+                    Наведите курсор на элементы автожира для прослушивания описания
+                </p>
+                <iframe src="animate/autogyro_map.html" class="animate-frame" title="Озвученная карта автожира" width="100%"></iframe>
+            </div>
+            
+            <h2>4. Преимущества автожира</h2>
+            
+            <ul>
+                <li><strong>Безопасность:</strong> невозможность входа в штопор, мягкая посадка при отказе двигателя</li>
+                <li><strong>Экономичность:</strong> расход топлива в 3-4 раза меньше, чем у вертолета</li>
+                <li><strong>Простота управления:</strong> легче в пилотировании, чем вертолет</li>
+                <li><strong>Скорость:</strong> выше, чем у большинства вертолетов</li>
+                <li><strong>Шум:</strong> значительно тише вертолета</li>
+            </ul>
+            
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+// Бургер-меню
+function toggleMenu() {
+    document.querySelector('.burger-menu').classList.toggle('active');
+    document.getElementById('navMenu').classList.toggle('active');
+}
+
+// Показ частей автожира
+function showPart(partId, element) {
+    // Скрыть все изображения
+    document.querySelectorAll('.parts-display img').forEach(img => {
+        img.classList.remove('active');
+    });
+    // Убрать активный класс со всех пунктов списка
+    document.querySelectorAll('.parts-list li').forEach(li => {
+        li.classList.remove('active');
+    });
+    // Показать выбранное изображение
+    document.getElementById(partId).classList.add('active');
+    // Добавить активный класс к выбранному пункту
+    element.classList.add('active');
+    // Скрыть placeholder
+    document.querySelector('.placeholder-text').style.display = 'none';
+}
+
+// Замена текста на изображение
+function toggleImage(element) {
+    element.classList.toggle('active');
+    
+}
+
+// Закрытие меню при клике на ссылку
+document.querySelectorAll('.nav-menu a').forEach(link => {
+    link.addEventListener('click', function() {
+        document.querySelector('.burger-menu').classList.remove('active');
+        document.getElementById('navMenu').classList.remove('active');
+    });
+});
+</script>
+</body>
+</html>

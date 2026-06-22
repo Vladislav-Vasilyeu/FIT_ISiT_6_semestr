@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Курсовойпроект – Принцип работы</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ФИКСИРОВАННОЕ МЕНЮ -->
+<div class="fixed-header">
+    <div class="nav-container">
+        <div class="site-title">Автожир</div>
+        
+        <button class="burger-menu" onclick="toggleMenu()" aria-label="Открыть меню">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <nav class="nav-menu" id="navMenu">
+            <a href="index.html">Титул</a>
+            <a href="theory.html">Теория</a>
+            <a href="description.html">Описание</a>
+            <a href="principle.html" class="active">Принцип работы</a>
+            <a href="simulator.html">Симулятор</a>
+            <a href="dialog.html">Диалог</a>
+        </nav>
+    </div>
+</div>
+
+<!-- ОСНОВНОЙ КОНТЕНТ -->
+<div class="content-page">
+    <div class="container">
+        <h1 class="page-title">Принцип работы Автожира</h1>
+        
+        <div class="placeholder">
+            <div class="placeholder-icon">📝</div>
+            <p>Раздел находится в разработке</p>
+            <p>Здесь будет размещен принцип работы :/</p>
+        </div>
+        
+        <!-- ЗДЕСЬ ДОБАВЛЯЙ СВОЙ КОНТЕНТ -->
+        
+    </div>
+</div>
+<script>
+    function toggleMenu() {
+    var burger = document.querySelector('.burger-menu');
+    var menu = document.getElementById('navMenu');
+    
+    burger.classList.toggle('active');
+    menu.classList.toggle('active');
+}
+
+// Закрытие меню при клике на ссылку (для мобильных)
+document.querySelectorAll('.nav-menu a').forEach(function(link) {
+    link.addEventListener('click', function() {
+        var burger = document.querySelector('.burger-menu');
+        var menu = document.getElementById('navMenu');
+        burger.classList.remove('active');
+        menu.classList.remove('active');
+    });
+});
+
+// Закрытие меню при клике вне его
+document.addEventListener('click', function(e) {
+    var header = document.querySelector('.fixed-header');
+    var burger = document.querySelector('.burger-menu');
+    var menu = document.getElementById('navMenu');
+    
+    if (!header.contains(e.target)) {
+        burger.classList.remove('active');
+        menu.classList.remove('active');
+    }
+});
+</script>
+</body>
+</html>

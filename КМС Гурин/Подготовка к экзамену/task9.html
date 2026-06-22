@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Задание 9</title>
+</head>
+<body>
+	<script>
+		const mystr = "Где используется автожир";
+		let words = mystr.split(" ");
+		const knoleage = [
+				["автожир","является","летательным аппаратом"],
+				["автожир", "имеет", "толкающий или тянущий воздушный винт для создания тяги"],
+				["автожир", "используется", "в рекреационной авиации и аэросъемке"]
+				 ];
+		const endings = [
+				["ет", "(ет|ут|ют)"],
+				["ут", "(ет|ут|ют)"],
+				["ют", "(ет|ут|ют)"],
+				["ется", "(ется|утся|ются)"]
+				];		
+
+		function getEnding(word)
+		{
+			for (let j = 0; j < endings.length; j++)
+			{
+				if(word.substring(word.length-endings[j][0].length) == endings[j][0]) return j;
+		
+				
+			}
+			return -1;
+		}
+
+
+		let predicateInd = -1;
+		console.log(words);
+		for (let i = 0; i < words.length; i++)
+		{
+			const endingIndex = getEnding(words[i]);
+			console.log(words[i]);
+			if(endingIndex >= 0)
+			{
+			const base = words[i].substring(0, words[i].length - endings[endingIndex][0].length);
+			words[i] = base + endings[endingIndex][1];
+			predicateInd = i;
+			break;
+			}
+
+		}
+		console.log(predicateInd);
+		console.log(words[predicateInd])
+		
+		const predicate = new RegExp(words[predicateInd]);
+
+
+		console.log(predicate);
+		let subject_string = words.slice(predicateInd + 1).join(".");
+		let subject = null;
+		console.log("subject_string.length:" + subject_string.length)
+		if(subject_string.length > 3)
+		{
+			subject = new RegExp(subject_string)
+		}
+		console.log(subject_string); 
+		console.log(subject); 
+		let answer = "";
+		let result = false;
+
+
+		for (let j = 0; j < knoleage.length; j++)
+		{
+			if (predicate.test(knoleage[j][1]) && (subject && (subject.test(knoleage[j][0]) || subject.test(knoleage[j][2]))))
+			{
+				const big = (str) => str.substring(0, 1).toUpperCase() + str.substring(1);
+				answer += big(knoleage[j][0] + " " + knoleage[j][1] + " " + knoleage[j][2])
+				result = true;
+			}
+			
+		}
+
+		if (result)
+		{
+			console.log(answer);
+		} else {
+			console.log("Ответ не найден");
+		}
+
+	</script>
+</body>
+</html>
