@@ -1,0 +1,425 @@
+
+
+## 1. Что такое расширенные группировки?
+
+**Расширенные группировки** — это возможности SQL, позволяющие получать несколько уровней агрегации данных в одном запросе без использования множественных `UNION ALL`.
+
+В Oracle к расширенным группировкам относятся:
+- `ROLLUP` — создает иерархические итоги (субтоталы и общий итог)
+- `CUBE` — создает все возможные комбинации группировок
+- `GROUPING SETS` — позволяет задать произвольный набор группировок
+
+**Преимущества:**
+- Один проход по данным вместо нескольких
+- Более читаемый код
+- Возможность использовать `GROUPING()` для определения уровня агрегации
+
+---
+
+## 2. Приведите примеры использования расширенных группировок
+
+### ROLLUP — иерархические итоги
+```sql
+-- Итоги по годам, кварталам и месяцам с нарастающими итогами
+SELECT 
+    EXTRACT(YEAR FROM start_date) AS год,
+    EXTRACT(MONTH FROM start_date) AS месяц,
+    SUM(total_amount) AS сумма
+FROM RENTAL_CONTRACT
+GROUP BY ROLLUP(EXTRACT(YEAR FROM start_date), EXTRACT(MONTH FROM start_date));
+```
+Результат: итоги по (год, месяц), затем субтоталы по годам, затем общий итог.
+
+### CUBE — все комбинации
+```sql
+-- Анализ по типу объекта и статусу договора
+SELECT 
+    ot.type_name,
+    rc.status,
+    COUNT(*) AS количество,
+    SUM(rc.total_amount) AS сумма
+FROM RENTAL_CONTRACT rc
+JOIN RENTAL_OBJECT ro ON rc.object_id = ro.object_id
+JOIN OBJECT_TYPE ot ON ro.type_id = ot.type_id
+GROUP BY CUBE(ot.type_name, rc.status);
+```
+Результат: все возможные комбинации (по типу, по статусу, по паре, общий итог).
+
+### GROUPING SETS — произвольные наборы
+```sql
+-- Только три нужных уровня: по месяцам, по годам и общий итог
+SELECT 
+    EXTRACT(YEAR FROM start_date) AS год,
+    EXTRACT(MONTH FROM start_date) AS месяц,
+    SUM(total_amount) AS сумма
+FROM RENTAL_CONTRACT
+GROUP BY GROUPING SETS(
+    (EXTRACT(YEAR FROM start_date), EXTRACT(MONTH FROM start_date)),
+    (EXTRACT(YEAR FROM start_date)),
+    ()
+);
+```
+
+---
+
+## 3. Для чего предназначена функция GROUPING()?
+
+**Функция `GROUPING()`** определяет, является ли значение в строке результата агрегированным (итоговым) или детальным.
+
+- Возвращает **1**, если значение является итогом (NULL, добавленный группировкой)
+- Возвращает **0**, если значение — детальная запись из данных
+
+**Пример:**
+```sql
+SELECT 
+    ot.type_name,
+    rc.status,
+    GROUPING(ot.type_name) AS is_type_aggregated,
+    GROUPING(rc.status) AS is_status_aggregated,
+    SUM(rc.total_amount) AS сумма
+FROM RENTAL_CONTRACT rc
+JOIN RENTAL_OBJECT ro ON rc.object_id = ro.object_id
+JOIN OBJECT_TYPE ot ON ro.type_id = ot.type_id
+GROUP BY CUBE(ot.type_name, rc.status);
+```
+
+**Использование:** позволяет заменить NULL на понятные подписи, например:
+```sql
+SELECT 
+    CASE WHEN GROUPING(ot.type_name) = 1 THEN 'ИТОГО' ELSE ot.type_name END AS тип,
+    SUM(rc.total_amount) AS сумма
+FROM ...
+```
+
+---
+
+## 4. Для чего предназначена функция GROUP_ID()?
+
+**Функция `GROUP_ID()`** используется для устранения дубликатов, которые могут возникать при использовании `ROLLUP` или `CUBE` с одинаковыми наборами группировки.
+
+- Возвращает **0** для уникальных наборов группировки
+- Возвращает **1, 2, ...** для повторяющихся наборов
+
+**Пример:**
+```sql
+SELECT 
+    ot.type_name,
+    rc.status,
+    GROUP_ID() as grp_id,
+    SUM(rc.total_amount) AS сумма
+FROM RENTAL_CONTRACT rc
+JOIN RENTAL_OBJECT ro ON rc.object_id = ro.object_id
+JOIN OBJECT_TYPE ot ON ro.type_id = ot.type_id
+GROUP BY CUBE(ot.type_name, rc.status)
+HAVING GROUP_ID() = 0;  -- убираем дубликаты
+```
+
+---
+
+## 5. Для чего предназначена функция GROUPING_ID()?
+
+**Функция `GROUPING_ID()`** возвращает битовую маску, показывающую, какие столбцы в группировке являются агрегированными.
+
+- Принимает список столбцов и возвращает число, соответствующее двоичному коду
+- Позволяет легко фильтровать нужные уровни агрегации
+
+**Пример:**
+```sql
+SELECT 
+    EXTRACT(YEAR FROM start_date) AS год,
+    EXTRACT(MONTH FROM start_date) AS месяц,
+    GROUPING_ID(EXTRACT(YEAR FROM start_date), EXTRACT(MONTH FROM start_date)) AS level,
+    SUM(total_amount) AS сумма
+FROM RENTAL_CONTRACT
+GROUP BY CUBE(EXTRACT(YEAR FROM start_date), EXTRACT(MONTH FROM start_date));
+
+-- level = 0 → детализация (год, месяц)
+-- level = 1 → итог по году (год, NULL)
+-- level = 2 → итог по месяцу (NULL, месяц)
+-- level = 3 → общий итог (NULL, NULL)
+```
+
+---
+
+## 6. Что такое составные столбцы?
+
+**Составные столбцы** — это объединение нескольких столбцов в один элемент группировки при использовании `ROLLUP`, `CUBE` или `GROUPING SETS`.
+
+Они указываются в скобках и обрабатываются как единое целое, а не по отдельности.
+
+**Пример:**
+```sql
+-- Без составного столбца: ROLLUP(год, месяц, день) даст 4 уровня
+-- С составным столбцом:
+SELECT 
+    EXTRACT(YEAR FROM start_date) AS год,
+    EXTRACT(MONTH FROM start_date) AS месяц,
+    ot.type_name,
+    SUM(total_amount) AS сумма
+FROM RENTAL_CONTRACT rc
+JOIN RENTAL_OBJECT ro ON rc.object_id = ro.object_id
+JOIN OBJECT_TYPE ot ON ro.type_id = ot.type_id
+GROUP BY ROLLUP((EXTRACT(YEAR FROM start_date), EXTRACT(MONTH FROM start_date)), ot.type_name);
+-- Группировка: (год, месяц, тип), затем (год, месяц), затем общий итог
+-- Без промежуточных итогов только по году
+```
+
+---
+
+## 7. Что такое GROUPING SETS?
+
+**`GROUPING SETS`** — это расширение `GROUP BY`, позволяющее задать несколько наборов группировки в одном запросе. Каждый набор указывается в круглых скобках.
+
+**Синтаксис:**
+```sql
+GROUP BY GROUPING SETS(
+    (столбец1, столбец2),  -- детальная группировка
+    (столбец1),            -- итог по столбцу1
+    (столбец2),            -- итог по столбцу2
+    ()                     -- общий итог
+)
+```
+
+**Пример:**
+```sql
+SELECT 
+    ot.type_name,
+    c.client_type,
+    rc.status,
+    SUM(rc.total_amount) AS сумма
+FROM RENTAL_CONTRACT rc
+JOIN RENTAL_OBJECT ro ON rc.object_id = ro.object_id
+JOIN OBJECT_TYPE ot ON ro.type_id = ot.type_id
+JOIN CLIENT c ON rc.client_id = c.client_id
+GROUP BY GROUPING SETS(
+    (ot.type_name, c.client_type),  -- по типу услуги и типу клиента
+    (ot.type_name),                  -- только по типу услуги
+    (c.client_type),                 -- только по типу клиента
+    ()                               -- общий итог
+);
+```
+
+---
+
+## 8. Поясните синтаксис аналитических функций
+
+**Общий синтаксис:**
+```sql
+функция(аргументы) OVER (
+    [PARTITION BY столбцы]      -- деление на группы
+    [ORDER BY столбцы]          -- порядок внутри группы
+    [ROWS | RANGE между строк]  -- окно анализа
+)
+```
+
+**Компоненты:**
+| Компонент | Назначение | Обязательность |
+|-----------|------------|----------------|
+| `функция()` | Аналитическая функция | Да |
+| `OVER()` | Ключевое слово, указывающее на аналитический контекст | Да |
+| `PARTITION BY` | Разбиение на логические группы | Нет |
+| `ORDER BY` | Порядок сортировки внутри группы | Нет (для некоторых функций обязателен) |
+| `ROWS/RANGE` | Определение размера окна | Нет |
+
+---
+
+## 9. Перечислите виды аналитических функций
+
+Аналитические функции делятся на **три основных вида**:
+
+| Вид | Назначение |
+|-----|------------|
+| **Агрегатные** | Вычисляют итоговые значения (SUM, AVG, COUNT и др.) в аналитическом контексте |
+| **Ранжирующие** | Присваивают номера или ранги строкам |
+| **Функции смещения** | Позволяют обращаться к строкам относительно текущей |
+
+---
+
+## 10. Перечислите известные вам аналитические функции каждого вида
+
+### Агрегатные (в аналитическом контексте)
+- `SUM() OVER()`
+- `AVG() OVER()`
+- `COUNT() OVER()`
+- `MIN() OVER()`
+- `MAX() OVER()`
+- `RATIO_TO_REPORT() OVER()` — доля от общего итога
+
+### Ранжирующие
+- `ROW_NUMBER() OVER()` — уникальный номер строки
+- `RANK() OVER()` — ранг с пропусками при совпадении
+- `DENSE_RANK() OVER()` — ранг без пропусков
+- `NTILE(n) OVER()` — разбивает на n групп (квантили)
+- `PERCENT_RANK() OVER()` — относительный ранг от 0 до 1
+- `CUME_DIST() OVER()` — кумулятивное распределение
+
+### Функции смещения
+- `LAG(значение, смещение, значение_по_умолчанию) OVER()` — значение из предыдущей строки
+- `LEAD(значение, смещение, значение_по_умолчанию) OVER()` — значение из следующей строки
+- `FIRST_VALUE(значение) OVER()` — первое значение в окне
+- `LAST_VALUE(значение) OVER()` — последнее значение в окне
+- `NTH_VALUE(значение, n) OVER()` — n-е значение в окне
+
+---
+
+## 11. Поясните секцию ORDER BY аналитических функций
+
+`ORDER BY` внутри `OVER()` определяет **порядок сортировки строк** внутри каждой партиции для вычисления аналитической функции.
+
+**Особенности:**
+- Для ранжирующих функций (`ROW_NUMBER`, `RANK` и др.) `ORDER BY` **обязателен**
+- Для агрегатных и функций смещения — опционален
+- По умолчанию используется `RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW`
+
+**Пример:**
+```sql
+SELECT 
+    contract_id,
+    total_amount,
+    -- Ранжирование по убыванию суммы
+    RANK() OVER (ORDER BY total_amount DESC) AS rank_desc,
+    -- Накопительная сумма в порядке дат
+    SUM(total_amount) OVER (ORDER BY start_date) AS cumulative_sum
+FROM RENTAL_CONTRACT;
+```
+
+---
+
+## 12. Поясните секцию PARTITION BY аналитических функций
+
+`PARTITION BY` делит набор строк на **логические группы**, внутри которых независимо вычисляется аналитическая функция.
+
+- Аналог `GROUP BY`, но не сворачивает строки
+- Если `PARTITION BY` опущен, вся выборка считается одной партицией
+- Функция вычисляется заново для каждой партиции
+
+**Пример:**
+```sql
+SELECT 
+    ot.type_name,
+    contract_id,
+    total_amount,
+    -- Ранг внутри каждого типа услуги
+    RANK() OVER (PARTITION BY ot.type_name ORDER BY total_amount DESC) AS rank_in_type,
+    -- Средняя сумма по типу услуги
+    AVG(total_amount) OVER (PARTITION BY ot.type_name) AS avg_by_type
+FROM RENTAL_CONTRACT rc
+JOIN RENTAL_OBJECT ro ON rc.object_id = ro.object_id
+JOIN OBJECT_TYPE ot ON ro.type_id = ot.type_id;
+```
+
+---
+
+## 13. Поясните ключевые слова ROWS и RANGE аналитических функций
+
+`ROWS` и `RANGE` определяют **рамки окна** (скользящего окна) для вычисления функции. Используются с `ORDER BY`.
+
+| Ключевое слово | Поведение |
+|----------------|-----------|
+| `ROWS` | Окно определяется по **физическим строкам** (текущая строка ± N строк) |
+| `RANGE` | Окно определяется по **логическим значениям** (текущее значение ± N) |
+
+**Спецификаторы границ:**
+- `UNBOUNDED PRECEDING` — от начала партиции
+- `UNBOUNDED FOLLOWING` — до конца партиции
+- `CURRENT ROW` — текущая строка
+- `n PRECEDING` — n строк/значений назад
+- `n FOLLOWING` — n строк/значений вперед
+
+**Примеры:**
+```sql
+SELECT 
+    contract_id,
+    start_date,
+    total_amount,
+    -- Скользящее среднее за текущую и 2 предыдущие строки (физически)
+    AVG(total_amount) OVER (ORDER BY start_date 
+        ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) AS moving_avg_rows,
+    -- Сумма за текущую и все последующие строки
+    SUM(total_amount) OVER (ORDER BY start_date 
+        ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING) AS future_sum,
+    -- Все строки с датой не более чем на 30 дней позже текущей
+    SUM(total_amount) OVER (ORDER BY start_date 
+        RANGE BETWEEN CURRENT ROW AND 30 FOLLOWING) AS range_sum
+FROM RENTAL_CONTRACT;
+```
+
+---
+
+## 14. Опишите, как работает вложенность аналитических функций
+
+**В Oracle аналитические функции нельзя напрямую вкладывать друг в друга.** Следующий код вызовет ошибку:
+
+```sql
+-- ОШИБКА: вложенные аналитические функции
+SELECT 
+    ROW_NUMBER() OVER (ORDER BY SUM(total_amount) OVER (PARTITION BY client_id)) -- так нельзя
+FROM RENTAL_CONTRACT;
+```
+
+**Правильный подход — использование подзапросов или CTE:**
+
+```sql
+-- Вложенность через подзапрос
+WITH step1 AS (
+    SELECT 
+        client_id,
+        SUM(total_amount) AS client_total
+    FROM RENTAL_CONTRACT
+    GROUP BY client_id
+)
+SELECT 
+    client_id,
+    client_total,
+    RANK() OVER (ORDER BY client_total DESC) AS rank_by_total
+FROM step1;
+```
+
+**Или с несколькими уровнями:**
+```sql
+WITH totals AS (
+    SELECT 
+        ot.type_name,
+        c.client_type,
+        SUM(rc.total_amount) AS type_client_total
+    FROM RENTAL_CONTRACT rc
+    JOIN RENTAL_OBJECT ro ON rc.object_id = ro.object_id
+    JOIN OBJECT_TYPE ot ON ro.type_id = ot.type_id
+    JOIN CLIENT c ON rc.client_id = c.client_id
+    GROUP BY ot.type_name, c.client_type
+)
+SELECT 
+    type_name,
+    client_type,
+    type_client_total,
+    RANK() OVER (PARTITION BY client_type ORDER BY type_client_total DESC) AS rank_in_client_type,
+    RANK() OVER (ORDER BY type_client_total DESC) AS overall_rank
+FROM totals;
+```
+
+**Порядок обработки:**
+1. Сначала выполняется `FROM` и `JOIN`
+2. Затем `WHERE` фильтрация
+3. Затем `GROUP BY` и агрегация
+4. Затем аналитические функции в `SELECT`
+5. Затем `HAVING` (может фильтровать по результатам аналитики через подзапрос)
+
+---
+
+## Шпаргалка для защиты
+
+| Вопрос | Краткий ответ |
+|--------|---------------|
+| **Расширенные группировки** | ROLLUP, CUBE, GROUPING SETS — несколько уровней агрегации за один проход |
+| **GROUPING()** | Определяет, агрегированное значение (1) или детальное (0) |
+| **GROUP_ID()** | Убирает дубликаты при одинаковых наборах группировки |
+| **GROUPING_ID()** | Битовая маска уровня агрегации |
+| **Составные столбцы** | Объединение столбцов в один элемент группировки |
+| **GROUPING SETS** | Произвольные наборы группировок в одном запросе |
+| **Синтаксис аналитики** | `функция OVER(PARTITION BY ... ORDER BY ... ROWS/RANGE ...)` |
+| **Виды аналитики** | Агрегатные, ранжирующие, смещения |
+| **ORDER BY в OVER()** | Определяет порядок строк внутри партиции |
+| **PARTITION BY** | Деление на логические группы |
+| **ROWS vs RANGE** | ROWS — по физическим строкам, RANGE — по значениям |
+| **Вложенность** | Только через подзапросы, напрямую нельзя |
+

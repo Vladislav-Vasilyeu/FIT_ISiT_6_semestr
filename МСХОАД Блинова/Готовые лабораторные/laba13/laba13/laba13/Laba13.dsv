@@ -1,0 +1,159 @@
+﻿<DataSourceView xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="dd90e143-6a70-43ca-9652-55ded1cf9d1c" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <ID>Laba13</ID>
+  <Name>Laba13</Name>
+  <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+  <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+  <Annotations>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowFriendlyNames</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:CurrentLayout</Name>
+      <Value>_ALL_TABLES_</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:SchemaRestriction</Name>
+      <Value></Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:RetrieveRelationships</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:Layouts</Name>
+      <Value>
+        <Layouts xmlns="">
+          <Diagram>
+            <Name>_ALL_TABLES_</Name>
+            <DiagramLayout />
+            <ShowRelationshipNames>False</ShowRelationshipNames>
+            <UseDiagramDefaultLayout>True</UseDiagramDefaultLayout>
+            <DiagramViewPortLeft>0</DiagramViewPortLeft>
+            <DiagramViewPortTop>0</DiagramViewPortTop>
+            <DiagramBoundingLeft>0</DiagramBoundingLeft>
+            <DiagramBoundingTop>0</DiagramBoundingTop>
+            <DiagramZoom>100</DiagramZoom>
+          </Diagram>
+        </Layouts>
+      </Value>
+    </Annotation>
+  </Annotations>
+  <DataSourceID>Laba13</DataSourceID>
+  <Schema>
+    <xs:schema id="Laba13" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+      <xs:element name="Laba13" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:design-time-name="4976379d-2af4-4302-80d0-a46365e21410">
+        <xs:complexType>
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="dbo_Clients" msprop:DbTableName="Clients" msprop:FriendlyName="Clients" msprop:TableType="Table" msprop:DbSchemaName="dbo" msprop:design-time-name="a973d9f4-a1b6-405d-b5a4-85c14003309b">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="ClientID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msprop:FriendlyName="ClientID" msprop:DbColumnName="ClientID" msprop:design-time-name="b5d4a33c-a6cc-46a9-8211-3ea16ba2dffa" type="xs:int" />
+                  <xs:element name="ClientName" msprop:FriendlyName="ClientName" msprop:DbColumnName="ClientName" msprop:design-time-name="cc21b8b0-07ea-44be-b850-b4a53f329be8">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="150" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="ClientType" msprop:FriendlyName="ClientType" msprop:DbColumnName="ClientType" msprop:design-time-name="f4e885c4-a0b2-46ff-95b6-a4829d9d0181" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="City" msprop:FriendlyName="City" msprop:DbColumnName="City" msprop:design-time-name="8cf1cf51-d1f9-4ff5-8f4e-81043384327a" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="100" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="dbo_Rentals" msprop:DbTableName="Rentals" msprop:FriendlyName="Rentals" msprop:TableType="Table" msprop:DbSchemaName="dbo" msprop:design-time-name="0376094f-00cf-499d-ba21-0987dbc440e5">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="RentalID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msprop:FriendlyName="RentalID" msprop:DbColumnName="RentalID" msprop:design-time-name="73887fca-8da7-47b4-ad71-6d622f87205b" type="xs:int" />
+                  <xs:element name="ServiceID" msprop:FriendlyName="ServiceID" msprop:DbColumnName="ServiceID" msprop:design-time-name="573cf5be-8333-4e48-af0c-e4dbee6caee6" type="xs:int" minOccurs="0" />
+                  <xs:element name="ClientID" msprop:FriendlyName="ClientID" msprop:DbColumnName="ClientID" msprop:design-time-name="45981e91-551d-4b30-b222-a2a66e60947b" type="xs:int" minOccurs="0" />
+                  <xs:element name="RentalDate" msprop:FriendlyName="RentalDate" msprop:DbColumnName="RentalDate" msprop:design-time-name="ea609922-79f7-4cc6-bf9b-ad16c20d1028" type="xs:dateTime" />
+                  <xs:element name="DurationDays" msprop:FriendlyName="DurationDays" msprop:DbColumnName="DurationDays" msprop:design-time-name="687e3828-5fca-4d15-8b4e-a7b20d231ec0" type="xs:int" />
+                  <xs:element name="TotalAmount" msprop:FriendlyName="TotalAmount" msprop:DbColumnName="TotalAmount" msprop:design-time-name="a385fe92-16d6-492d-9695-7aaf84a9ed37" type="xs:decimal" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="dbo_Services" msprop:DbTableName="Services" msprop:FriendlyName="Services" msprop:TableType="Table" msprop:DbSchemaName="dbo" msprop:design-time-name="ae16ef11-4f60-4ec7-8488-fb2b4d0b7479">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="ServiceID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msprop:FriendlyName="ServiceID" msprop:DbColumnName="ServiceID" msprop:design-time-name="b7b1b381-7901-49ba-b99b-3232244e24d6" type="xs:int" />
+                  <xs:element name="TypeID" msprop:FriendlyName="TypeID" msprop:DbColumnName="TypeID" msprop:design-time-name="61da365c-aaaf-4521-95a9-f6f001fb9ad3" type="xs:int" minOccurs="0" />
+                  <xs:element name="Title" msprop:FriendlyName="Title" msprop:DbColumnName="Title" msprop:design-time-name="671aaf6b-4e5e-421e-9069-272044e08e30">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="150" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="PricePerDay" msprop:FriendlyName="PricePerDay" msprop:DbColumnName="PricePerDay" msprop:design-time-name="893a1b01-1b1c-4883-a309-fe2d7cf49a64" type="xs:decimal" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="dbo_ServiceTypes" msprop:DbTableName="ServiceTypes" msprop:FriendlyName="ServiceTypes" msprop:TableType="Table" msprop:DbSchemaName="dbo" msprop:design-time-name="8e9f1cb4-f45a-4a24-b035-3959f821ad81">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="TypeID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msprop:FriendlyName="TypeID" msprop:DbColumnName="TypeID" msprop:design-time-name="b267ed7b-a1d0-4d3b-8323-d22c77d5306b" type="xs:int" />
+                  <xs:element name="TypeName" msprop:FriendlyName="TypeName" msprop:DbColumnName="TypeName" msprop:design-time-name="1e72a0e8-94df-427f-8dee-3a8723262f33">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="100" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="Description" msprop:FriendlyName="Description" msprop:DbColumnName="Description" msprop:design-time-name="2fbbbb06-f050-44bd-8195-9e0864da726f" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="255" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:choice>
+        </xs:complexType>
+        <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+          <xs:selector xpath=".//dbo_Clients" />
+          <xs:field xpath="ClientID" />
+        </xs:unique>
+        <xs:unique name="dbo_Rentals_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+          <xs:selector xpath=".//dbo_Rentals" />
+          <xs:field xpath="RentalID" />
+        </xs:unique>
+        <xs:unique name="dbo_Services_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+          <xs:selector xpath=".//dbo_Services" />
+          <xs:field xpath="ServiceID" />
+        </xs:unique>
+        <xs:unique name="dbo_ServiceTypes_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+          <xs:selector xpath=".//dbo_ServiceTypes" />
+          <xs:field xpath="TypeID" />
+        </xs:unique>
+        <xs:keyref name="FK__Services__TypeID__4CA06362" refer="dbo_ServiceTypes_Constraint1">
+          <xs:selector xpath=".//dbo_Services" />
+          <xs:field xpath="TypeID" />
+        </xs:keyref>
+        <xs:keyref name="FK__Rentals__ClientI__534D60F1" refer="Constraint1">
+          <xs:selector xpath=".//dbo_Rentals" />
+          <xs:field xpath="ClientID" />
+        </xs:keyref>
+        <xs:keyref name="FK__Rentals__Service__52593CB8" refer="dbo_Services_Constraint1">
+          <xs:selector xpath=".//dbo_Rentals" />
+          <xs:field xpath="ServiceID" />
+        </xs:keyref>
+      </xs:element>
+    </xs:schema>
+    <Laba13 xmlns="" />
+  </Schema>
+</DataSourceView>

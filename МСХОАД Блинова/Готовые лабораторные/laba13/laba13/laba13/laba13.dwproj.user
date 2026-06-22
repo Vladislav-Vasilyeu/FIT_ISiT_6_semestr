@@ -1,0 +1,49 @@
+<AnalysisServicesUserConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0">
+  <Configurations>
+    <Configuration>
+      <Name>Development</Name>
+      <Options>
+        <UserIDs>
+          <ConfigurationSetting>
+            <Id>Server</Id>
+            <Name>Server</Name>
+            <Value xsi:type="xsd:string">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA60UUwU+qy0m4QLAlfJKiqAAAAAAOAAAAUwBlAHIAdgBlAHIAAAAQZgAAAAEAACAAAABpuwJvJBl1o1lP+JAO8FwSSMegi/PWPw7SLQLbwRLPCwAAAAAOgAAAAAIAACAAAACC9dl9Rh8ujvRqG/lh0vupOzxsCTBmDzqumPG6rBgVixAAAADnxeNoAZ7nFAQmuAbwHMLOQAAAAK87WKSQ2vFY6I4pBM/Ir9MtMIRpDYO/fNqe+faBymLb+niQTCD+XUxMVyA8p+iQcwFhnulZ5Ehh3ksIjTJ7x/k=</Value>
+          </ConfigurationSetting>
+          <ConfigurationSetting>
+            <Id>Laba10</Id>
+            <Name>Laba10</Name>
+            <Value xsi:type="xsd:string">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA60UUwU+qy0m4QLAlfJKiqAAAAAAOAAAATABhAGIAYQAxADAAAAAQZgAAAAEAACAAAAAwQQN+WUoW4jpP3Va/S5pJyADV2+Yd+PltdKtx5EWHPwAAAAAOgAAAAAIAACAAAAAzoqhV0bqXahTG+4ld2cBQ8IP9r5kLO3uMky+Nnm8k2hAAAADQT8+1ovsdgN8UqR0qUhH2QAAAAHOU1kQpLD8pq8dUCCGK+3nnEFkc/Tx/kulzOpiPUJIaOFlvikNQmFV+jUPunfj2moy1oVoXNXnf2DznJPVqTuE=</Value>
+          </ConfigurationSetting>
+          <ConfigurationSetting>
+            <Id>Laba13</Id>
+            <Name>Laba13</Name>
+            <Value xsi:type="xsd:string">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA60UUwU+qy0m4QLAlfJKiqAAAAAAOAAAATABhAGIAYQAxADMAAAAQZgAAAAEAACAAAAD5xQFimNqSTOkCRimte5Asv/gnwfA6RbJglFggogb8oQAAAAAOgAAAAAIAACAAAABvXYmjeyS84x92KeZPyFtFmKbCD5Py+lLpR0KNI49G1RAAAABfRJFwKAEQrpX1WuWikFmKQAAAAFpCxZxkO8rPQ5f7C9U1EOtElDgEDsrWLMA2yTVoy7WtAcnrKSvj3uWA08drGttF5vov/Ccpx0QFcSlfM6WnSSc=</Value>
+          </ConfigurationSetting>
+        </UserIDs>
+        <UserPasswords>
+          <ConfigurationSetting>
+            <Id>Server</Id>
+            <Name>Server</Name>
+            <Value xsi:type="xsd:string">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA60UUwU+qy0m4QLAlfJKiqAAAAAAOAAAAUwBlAHIAdgBlAHIAAAAQZgAAAAEAACAAAACVmGfz/k+Ss+TLCs3sF9zH/72Vm1b6oTj6OLgwkzE8agAAAAAOgAAAAAIAACAAAABGjiTHrGkdE0qa1i8mbNZ9UbUcpHsQwM0T1x1jJng/aSAAAAC/dxIfbR0GS6AKU67MOzm7DGCz/DVJbWJ5xjZxzipZbUAAAAAi9gLwqbEkJ2qLXZ94M/iiDT7Yw5e5zJyW4bEYzF2QSqF/MP+yYRBOU8IxDV+NH47AwBzsi4cURf2jNr98c6JL</Value>
+          </ConfigurationSetting>
+          <ConfigurationSetting>
+            <Id>Laba10</Id>
+            <Name>Laba10</Name>
+            <Value xsi:type="xsd:string">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA60UUwU+qy0m4QLAlfJKiqAAAAAAOAAAATABhAGIAYQAxADAAAAAQZgAAAAEAACAAAABFKSLfmQF1sJ2K128uaItN+l9dGoCw9UkXJDxkos9YzAAAAAAOgAAAAAIAACAAAAByLmqea/VL2MYdU6eKt5J8qJ31Kj9rpEH1JOVy5phieiAAAABZ3z+JAIPvhromXkoK1Tk/rdAgqFEWNZvsZh/Kona3HEAAAAAixiYGJZi17ZekWcwzMR2dvlpsfDhU9TO/OoP+gTIXr3MR3iAhpu29AKf7XJQ5s8ZxZYB3WQXTttCuObGWBgAr</Value>
+          </ConfigurationSetting>
+          <ConfigurationSetting>
+            <Id>Laba13</Id>
+            <Name>Laba13</Name>
+            <Value xsi:type="xsd:string">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA60UUwU+qy0m4QLAlfJKiqAAAAAAOAAAATABhAGIAYQAxADMAAAAQZgAAAAEAACAAAABvOSHLSllBvOIwhTUNB4oPbm1vBUcr80+ZCLB81eAmewAAAAAOgAAAAAIAACAAAABkudzHn9V0FaYd0yfogF+NtGqASmKqhzutvidxWAzUOSAAAACOgkaXh5+boYgj/IbSLpstBPh4wOE+IUVoPYpZym7BpUAAAABQT5pbZHYau20TTWU88SulmTnSdhinCGTBvWUahXZcKKaQ+uc2zzI4VcwLRN2ybCxGrC3uDLgc+mHuzym08/aZ</Value>
+          </ConfigurationSetting>
+        </UserPasswords>
+        <TargetServer>Server\MSSQLSERVER</TargetServer>
+        <TargetDatabase>laba13</TargetDatabase>
+        <StartObject>
+          <ObjectId></ObjectId>
+          <ObjectType>Current</ObjectType>
+        </StartObject>
+      </Options>
+    </Configuration>
+  </Configurations>
+</AnalysisServicesUserConfiguration>
